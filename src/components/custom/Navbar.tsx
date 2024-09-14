@@ -24,7 +24,7 @@ const Navbar = () => {
 				{navItems.map((item) => (
 					<li
 						key={item.id}
-						className="text-black mr-6 font-semibold hover:text-green-400 hover:scale-110 transition-all hover:cursor-pointer">
+						className="text-black text-[1.5vw] mr-6 font-semibold hover:text-green-400 hover:scale-110 transition-all hover:cursor-pointer">
 						<a href={`#${item.id}`}>{item.title}</a>
 					</li>
 				))}

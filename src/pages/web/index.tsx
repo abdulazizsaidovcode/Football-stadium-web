@@ -6,6 +6,7 @@ import { TextGenerateEffect } from "../../components/ui/text-generate-effect";
 import stadium from "../../assets/stadium.png";
 import appstore from "../../assets/appstore.png";
 import googleplay from "../../assets/googleplay.png";
+import Title from "../../components/custom/Title";
 export interface StatType {
 	icon: JSX.Element;
 	number: string;
@@ -32,20 +33,21 @@ function Webpage() {
 	];
 	return (
 		<div className="">
-			<div id="home" className="w-[90%] container  px-4 mx-auto  mt-8 flex items-center">
-				<div className="w-[50%] ">
-					<h1 className="font-bold text-5xl transition hover:scale-110">
-						Football Stadiums
-					</h1>
-					<div className="text-xl my-6">
+			<div
+				id="home"
+				className="w-[90%] mx-auto max-800:block max-800:text-center container  px-4  mt-8 flex items-center">
+				<div className="w-[50vw] max-800:w-full max-800:mx-auto">
+					<h1 className="font-bold text-[4vw] max-800:text-[6vw] transition hover:scale-110"></h1>
+					<Title text="Football Stadiums" />
+					<div className="my-6">
 						<TextGenerateEffect words={words} />
 					</div>
 
-					<button className="px-20 py-3 hover:scale-110 bg-black text-white text-xl rounded-md font-semibold hover:bg-green-400 transition hover:shadow-lg">
+					<button className="px-[8vw] py-[1vw] hover:scale-110 bg-black text-white text-xl rounded-md font-semibold hover:bg-green-400 transition hover:shadow-lg">
 						Contact Us
 					</button>
 				</div>
-				<div className="w-[50%] ">
+				<div className="w-[50%] max-800:w-[80%] max-800:mx-auto max-800:mt-5 ">
 					<img
 						src={img}
 						className="w-full"
@@ -53,7 +55,9 @@ function Webpage() {
 					/>
 				</div>
 			</div>
-			<div id="stat" className="w-[80%] container justify-between flex p-[50px] mx-auto mt-[50px] min-h-[200px]">
+			<div
+				id="stat"
+				className="w-[95%] max-800:flex-wrap max-520:block  container justify-between flex px-[50px] mx-auto mt-[50px] min-h-[200px]  ">
 				{stats.map((stat) => (
 					<StatCard
 						icon={stat.icon}
@@ -62,18 +66,22 @@ function Webpage() {
 					/>
 				))}
 			</div>
-			<div id="about" className="my-[50px] container mx-auto">
-				<h1 className="flex transition hover:scale-105 justify-center font-bold text-5xl mb-6">
-					ABOUT US
-				</h1>
-				<div className="w-[90%] mx-auto my-20 flex justify-around items-center">
-					<h3 className="w-[42%]  text-left text-2xl">
-						Xush kelibsiz! Biz, IT CITY jamoasi, futbol stadionlarini qulay va
+			<div
+				id="about"
+				className="my-[50px] max-800:my-[2vw] container mx-auto">
+				<Title
+					text="About US"
+					className="text-center"
+				/>
+				<div className="w-[90%] mx-auto my-20 max-800:my-4 flex justify-around max-800:flex-col-reverse items-center">
+					<TextGenerateEffect
+						className="w-[44%] max-800:w-full max-800:text-center"
+						words={`Xush kelibsiz! Biz, IT CITY jamoasi, futbol stadionlarini qulay va
 						samarali tarzda band qilish bo'yicha mutaxassislarimiz. Bizning
 						maqsadimiz — sizga stadion band qilish jarayonini soddalashtirish va
-						maksimal darajada qulaylik yaratishdir.
-					</h3>
-					<div className="w-[30%] overflow-hidden hover:scale-105 transition rounded-xl">
+						maksimal darajada qulaylik yaratishdir.`}
+					/>
+					<div className="w-[30%] max-800:w-[80%] max-800:my-4  overflow-hidden hover:scale-105 transition rounded-xl">
 						<img
 							className="w-full"
 							src={stadium}
@@ -82,15 +90,18 @@ function Webpage() {
 					</div>
 				</div>
 			</div>
-			<div id="download" className="w-full p-[20px] mt-[20px] bg-green-400">
-				<div className="container w-[90%] mx-auto p-4 flex justify-evenly items-center">
-					<h1 className="text-4xl font-bold transition hover:scale-110">Download APP</h1>
-					<div className="flex gap-2 ">
+			<div
+				id="download"
+				className="w-full p-[20px] mt-[20px] bg-green-400">
+				<div className="w-[90%] mx-auto p-4 flex justify-evenly max-800:block items-center">
+					<Title text="Download APP" className="max-800:text-center max-800:mb-[4vw]" />
+					<div className="flex justify-between gap-2 w-[30%] max-800:w-[90%] max-800:mx-auto">
 						<a
 							href="#"
 							className="transition hover:scale-105">
 							<img
 								src={googleplay}
+								className="w-full"
 								alt="google play image"
 							/>
 						</a>
@@ -99,6 +110,7 @@ function Webpage() {
 							className="transition hover:scale-105">
 							<img
 								src={appstore}
+								className="w-full"
 								alt="app store image"
 							/>
 						</a>

@@ -1,0 +1,10 @@
+const Title = ({ text, className }: { text: string; className?: string }) => {
+	return (
+		<h1
+			className={`font-bold text-[4vw] max-800:text-[6vw] transition hover:scale-110 ${className}`}>
+			{text}
+		</h1>
+	);
+};
+
+export default Title;
