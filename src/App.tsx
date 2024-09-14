@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router";
 import Webpage from "./pages/web";
 import Navbar from "./components/custom/Navbar";
+import { SignIn } from "./pages/Auth/SignIn";
 
 function App() {
 	return (
@@ -10,6 +11,10 @@ function App() {
 				<Route
 					path="/"
 					element={<Webpage />}
+				/>
+				<Route
+					path="signin"
+					element={<SignIn />}
 				/>
 			</Routes>
 		</div>
