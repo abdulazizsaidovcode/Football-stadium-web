@@ -67,7 +67,7 @@ function Webpage() {
 					ABOUT US
 				</h1>
 				<div className="w-[90%] mx-auto my-20 flex justify-around items-center">
-					<h3 className="w-[40%]  text-center text-2xl">
+					<h3 className="w-[42%]  text-left text-2xl">
 						Xush kelibsiz! Biz, IT CITY jamoasi, futbol stadionlarini qulay va
 						samarali tarzda band qilish bo'yicha mutaxassislarimiz. Bizning
 						maqsadimiz — sizga stadion band qilish jarayonini soddalashtirish va

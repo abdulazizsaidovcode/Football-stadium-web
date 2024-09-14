@@ -20,7 +20,7 @@ const Navbar = () => {
 
 	return (
 		<div className="shadow-lg sticky top-0 z-50">
-			<ul className="container mx-auto flex justify-end bg-gray-100 w-30 p-4 ">
+			<ul className="container mx-auto flex justify-end bg-gray-100 w-30 p-4 py-8 ">
 				{navItems.map((item) => (
 					<li
 						key={item.id}
