@@ -32,8 +32,8 @@ function Webpage() {
 	];
 	return (
 		<div className="">
-			<div className="w-[90%] container  px-4 mx-auto  mt-8 flex items-center">
-				<div className="w-[50%]">
+			<div id="home" className="w-[90%] container  px-4 mx-auto  mt-8 flex items-center">
+				<div className="w-[50%] ">
 					<h1 className="font-bold text-5xl transition hover:scale-110">
 						Football Stadiums
 					</h1>
@@ -53,7 +53,7 @@ function Webpage() {
 					/>
 				</div>
 			</div>
-			<div className="w-[80%] container justify-between flex p-[50px] mx-auto mt-[50px] min-h-[200px]">
+			<div id="stat" className="w-[80%] container justify-between flex p-[50px] mx-auto mt-[50px] min-h-[200px]">
 				{stats.map((stat) => (
 					<StatCard
 						icon={stat.icon}
@@ -62,7 +62,7 @@ function Webpage() {
 					/>
 				))}
 			</div>
-			<div className="my-[50px] container mx-auto">
+			<div id="about" className="my-[50px] container mx-auto">
 				<h1 className="flex transition hover:scale-105 justify-center font-bold text-5xl mb-6">
 					ABOUT US
 				</h1>
@@ -82,7 +82,7 @@ function Webpage() {
 					</div>
 				</div>
 			</div>
-			<div className="w-full p-[20px] my-[20px] bg-green-400">
+			<div id="download" className="w-full p-[20px] my-[20px] bg-green-400">
 				<div className="container w-[90%] mx-auto p-4 flex justify-evenly items-center">
 					<h1 className="text-4xl font-bold transition hover:scale-110">Download APP</h1>
 					<div className="flex gap-2 ">

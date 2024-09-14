@@ -25,7 +25,7 @@ const Navbar = () => {
 					<li
 						key={item.id}
 						className="text-black mr-6 font-semibold hover:text-green-400 hover:scale-110 transition-all hover:cursor-pointer">
-						{item.title}
+						<a href={`#${item.id}`}>{item.title}</a>
 					</li>
 				))}
 			</ul>
