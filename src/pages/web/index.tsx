@@ -82,7 +82,7 @@ function Webpage() {
 					</div>
 				</div>
 			</div>
-			<div id="download" className="w-full p-[20px] my-[20px] bg-green-400">
+			<div id="download" className="w-full p-[20px] mt-[20px] bg-green-400">
 				<div className="container w-[90%] mx-auto p-4 flex justify-evenly items-center">
 					<h1 className="text-4xl font-bold transition hover:scale-110">Download APP</h1>
 					<div className="flex gap-2 ">
