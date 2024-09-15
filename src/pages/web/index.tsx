@@ -32,18 +32,17 @@ function Webpage() {
 		{ icon: <FaUserTie />, number: "50", title: "Stadium Owners" },
 	];
 	return (
-		<div className="">
+		<>
 			<div
 				id="home"
-				className="w-[90%] mx-auto max-800:block max-800:text-center container  px-4  mt-8 flex items-center">
+				className="w-[95%] mx-auto max-800:block max-800:text-center container px-4  my-8 flex items-center">
 				<div className="w-[50vw] max-800:w-full max-800:mx-auto">
-					<h1 className="font-bold text-[4vw] max-800:text-[6vw] transition hover:scale-110"></h1>
 					<Title text="Football Stadiums" />
 					<div className="my-6">
 						<TextGenerateEffect words={words} />
 					</div>
 
-					<button className="px-[8vw] py-[1vw] hover:scale-110 bg-black text-white text-xl rounded-md font-semibold hover:bg-green-400 transition hover:shadow-lg">
+					<button className="hidden md:block px-[8vw] py-[1vw] hover:scale-110 bg-black text-white text-xl rounded-md font-semibold hover:bg-green-400 transition hover:shadow-lg">
 						Contact Us
 					</button>
 				</div>
@@ -55,16 +54,23 @@ function Webpage() {
 					/>
 				</div>
 			</div>
-			<div
-				id="stat"
-				className="w-[95%] max-800:flex-wrap max-520:block  container justify-between flex px-[50px] mx-auto mt-[50px] min-h-[200px]  ">
-				{stats.map((stat) => (
-					<StatCard
-						icon={stat.icon}
-						number={stat.number}
-						title={stat.title}
-					/>
-				))}
+			<div className="mt-8">
+				<Title
+					text="Statistics"
+					className="text-center"
+				/>
+				<div
+					id="stat"
+					className="w-[95%] max-800:flex-wrap max-520:block  container justify-between flex px-[50px] mx-auto mt-[20px] min-h-[200px]  ">
+					{stats.map((stat, i) => (
+						<StatCard
+							key={i}
+							icon={stat.icon}
+							number={stat.number}
+							title={stat.title}
+						/>
+					))}
+				</div>
 			</div>
 			<div
 				id="about"
@@ -94,7 +100,10 @@ function Webpage() {
 				id="download"
 				className="w-full p-[20px] mt-[20px] bg-green-400">
 				<div className="w-[90%] mx-auto p-4 flex justify-evenly max-800:block items-center">
-					<Title text="Download APP" className="max-800:text-center max-800:mb-[4vw]" />
+					<Title
+						text="Download APP"
+						className="max-800:text-center max-800:mb-[4vw]"
+					/>
 					<div className="flex justify-between gap-2 w-[30%] max-800:w-[90%] max-800:mx-auto">
 						<a
 							href="#"
@@ -117,7 +126,7 @@ function Webpage() {
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 
