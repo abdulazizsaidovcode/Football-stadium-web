@@ -8,18 +8,14 @@ import {
 } from "@tabler/icons-react";
 
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom"; // Import Link from react-router-dom
+import { Link, Route, Routes, useNavigate } from "react-router-dom"; // Import Link from react-router-dom
 import { cn } from "../../lib/utils";
+import { Dashboard } from "../../pages/admin/dashboard";
+import Notification from "../../pages/admin/notification";
 const logoStyle =
 	"h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0  aaa";
-export function SidebarComponent({
-	children,
-	title,
-}: {
-	children: React.ReactNode;
-	title: string;
-}) {
-	const links = [
+export function SidebarComponent() {
+	const roots = [
 		{
 			label: "Dashboard",
 			href: "/admin/dashboard",
@@ -55,12 +51,12 @@ export function SidebarComponent({
 				open={open}
 				setOpen={setOpen}>
 				<SidebarBody
-					title={title}
+					title={"Hello"}
 					className="justify-between gap-10">
 					<div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
 						{open ? <Logo /> : <LogoIcon />}
 						<div className="mt-8 flex flex-col gap-2 ">
-							{links.map((link) => (
+							{roots.map((link) => (
 								<Link
 									onClick={() => {
 										setOpen(false);
@@ -93,8 +89,17 @@ export function SidebarComponent({
 				</SidebarBody>
 			</Sidebar>
 			<Panel>
-				<h1 className="py-4 hidden md:block">{title}</h1>
-				{children}
+				<h1 className="my-4">{`Dashboard/*`}</h1>
+				<Routes>
+					<Route
+						path="admin/dashboard"
+						element={<Dashboard />}
+					/>
+					<Route
+						path="admin/natification"
+						element={<Notification />}
+					/>
+				</Routes>
 			</Panel>
 		</div>
 	);

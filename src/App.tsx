@@ -3,9 +3,9 @@ import Webpage from "./pages/web";
 import Navbar from "./components/custom/Navbar";
 import { SignIn } from "./pages/Auth/SignIn";
 import AdminPage from "./pages/admin";
-import { Dashboard } from "./pages/admin/dashboard";
+// import { Dashboard } from "./pages/admin/dashboard";
 import { SidebarComponent } from "./components/ui/sidebar-component";
-import Notification from "./pages/admin/notification";
+// import Notification from "./pages/admin/notification";
 
 function App() {
 	const location = useLocation();
@@ -16,24 +16,21 @@ function App() {
 			{!isAdminRoute && <Navbar />}
 
 			<Routes>
-				<Route path="/" element={<Webpage />} />
-				<Route path="/signin" element={<SignIn />} />
-				<Route path="/admin" element={<AdminPage />} />
 				<Route
-					path="/admin/dashboard"
-					element={
-						<SidebarComponent title="Dashboard">
-							<Dashboard />
-						</SidebarComponent>
-					}
+					path="/"
+					element={<Webpage />}
 				/>
 				<Route
-					path="/admin/notification"
-					element={
-						<SidebarComponent title="Notification">
-							<Notification />
-						</SidebarComponent>
-					}
+					path="/signin"
+					element={<SignIn />}
+				/>
+				<Route
+					path="/admin"
+					element={<AdminPage />}
+				/>
+				<Route
+					path="*"
+					element={<SidebarComponent />}
 				/>
 			</Routes>
 		</div>
