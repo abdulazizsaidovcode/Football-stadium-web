@@ -1,11 +1,10 @@
-import React from 'react'
 
 function AdminPage() {
-  return (
-    <div>
-      
-    </div>
-  )
+	return (
+		<div className="w-full">
+			{/* <Routes></Routes> */}
+		</div>
+	);
 }
 
-export default AdminPage
+export default AdminPage;
