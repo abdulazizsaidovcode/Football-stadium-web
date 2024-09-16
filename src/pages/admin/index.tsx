@@ -3,6 +3,7 @@ import { Dashboard } from "./dashboard";
 import Notification from "./notification";
 import { SidebarComponent } from "../../components/ui/sidebar-component";
 import Clients from "./clients";
+import Masters from "./masters";
 
 function AdminPage() {
 	return (
@@ -12,6 +13,7 @@ function AdminPage() {
 					<Route path="dashboard" element={<Dashboard />} />
 					<Route path="notification" element={<Notification />} /> 
 					<Route path="clients" element={<Clients />} />
+					<Route path="masters" element={<Masters/>}/> 
 				</Routes>
 			</SidebarComponent>
 		</div>

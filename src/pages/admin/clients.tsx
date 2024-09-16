@@ -1,4 +1,4 @@
-import { useGetData } from "../../hooks/useGet";
+import { useGetData } from "../../hooks/useGetData";
 
 const Clients = () => {
 	const { data, isLoading } = useGetData("user/clients/for-admin/list");

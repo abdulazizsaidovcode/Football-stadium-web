@@ -6,6 +6,7 @@ import {
 	IconBrandTabler,
 	IconNotification,
 	IconUsers,
+	IconUserBolt,
 } from "@tabler/icons-react";
 import Cookies from "js-cookie";
 import { motion } from "framer-motion";
@@ -23,7 +24,11 @@ export function SidebarComponent({ children }: { children: React.ReactNode }) {
 			href: "/admin/dashboard",
 			icon: <IconBrandTabler className={iconStyle} />,
 		},
-
+		{
+			label: "Masters",
+			href: "/admin/masters",
+			icon: <IconUserBolt className={iconStyle} />,
+		},
 		{
 			label: "Clients",
 			href: "/admin/clients",
