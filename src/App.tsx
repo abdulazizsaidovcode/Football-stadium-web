@@ -1,32 +1,23 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import Webpage from "./pages/web";
 import Navbar from "./components/custom/Navbar";
-import { SignIn } from "./pages/Auth/SignIn";
-// import { Dashboard } from "./pages/admin/dashboard";
-import { SidebarComponent } from "./components/ui/sidebar-component";
-// import Notification from "./pages/admin/notification";
+import { SignIn } from "./pages/auth/SignIn";
+import AdminPage from "./pages/admin";
+import PrivateRoute from "./components/custom/private-route";
 
 function App() {
 	const location = useLocation();
-	const isAdminRoute = location.pathname.startsWith("/admin");
+	const pathname = location.pathname;
 
 	return (
 		<div className="bg-gray-100 min-h-screen">
-			{!isAdminRoute && <Navbar />}
-
+			{pathname === "/" ? <Navbar /> : null}
 			<Routes>
-				<Route
-					path="/"
-					element={<Webpage />}
-				/>
-				<Route
-					path="/signin"
-					element={<SignIn />}
-				/>
-				<Route
-					path="*"
-					element={<SidebarComponent />}
-				/>
+				<Route path="/" element={<Webpage />} />
+				<Route path="/signin" element={<SignIn />} />
+				<Route path="/admin/*" element={<PrivateRoute redirectTo="/signin" />}>
+					<Route path="*" element={<AdminPage />} />
+				</Route>
 			</Routes>
 		</div>
 	);

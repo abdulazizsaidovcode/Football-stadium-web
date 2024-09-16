@@ -1,14 +1,38 @@
 "use client";
-import React from "react";
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { BottomGradient, LabelInputContainer } from "../../components/ui/label";
+import { SubmitHandler, useForm } from "react-hook-form";
+import instance from "../../server";
+import { useNavigate } from "react-router";
+import Cookies from "js-cookie";
 
 export function SignIn() {
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		console.log("Form submitted");
+	const navigate = useNavigate();
+
+	interface Inputs {
+		phone: string;
+		password: string;
+	}
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<Inputs>();
+
+	const onSubmit: SubmitHandler<Inputs> = async (data) => {
+		try {
+			const response = await instance.post("/auth/login", data);
+			if (response.status === 200) {
+				navigate("/admin/dashboard");
+				Cookies.set("auth_token", response.data.data.token);
+			}
+		} catch (error) {
+			console.error("Sign-in error:", error);
+		}
 	};
+
 	return (
 		<div className="relative left-1/2 top-1/2 transform -translate-x-1/2 translate-y-1/4">
 			<div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
@@ -22,14 +46,18 @@ export function SignIn() {
 
 				<form
 					className="my-8"
-					onSubmit={handleSubmit}>
+					onSubmit={handleSubmit(onSubmit)}>
 					<LabelInputContainer className="mb-4">
-						<Label htmlFor="email">Username</Label>
+						<Label htmlFor="phone">Username</Label>
 						<Input
-							id="email"
+							id="phone"
 							placeholder="erkinov0247"
-							type="email"
+							type="text"
+							{...register("phone", { required: "Username is required" })}
 						/>
+						{errors.phone && (
+							<p className="text-red-500 text-sm">{errors.phone.message}</p>
+						)}
 					</LabelInputContainer>
 					<LabelInputContainer className="mb-4">
 						<Label htmlFor="password">Password</Label>
@@ -37,7 +65,11 @@ export function SignIn() {
 							id="password"
 							placeholder="••••••••"
 							type="password"
+							{...register("password", { required: "Password is required" })}
 						/>
+						{errors.password && (
+							<p className="text-red-500 text-sm">{errors.password.message}</p>
+						)}
 					</LabelInputContainer>
 
 					<button

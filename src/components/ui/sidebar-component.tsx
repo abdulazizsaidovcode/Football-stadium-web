@@ -5,37 +5,39 @@ import {
 	IconArrowLeft,
 	IconBrandTabler,
 	IconNotification,
+	IconUsers,
 } from "@tabler/icons-react";
-
+import Cookies from "js-cookie";
 import { motion } from "framer-motion";
-import { Link, Route, Routes, useNavigate } from "react-router-dom"; // Import Link from react-router-dom
+import { Link, useNavigate } from "react-router-dom"; // Import Link from react-router-dom
 import { cn } from "../../lib/utils";
-import { Dashboard } from "../../pages/admin/dashboard";
-import Notification from "../../pages/admin/notification";
+
 const logoStyle =
 	"h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0  aaa";
-export function SidebarComponent() {
+export function SidebarComponent({ children }: { children: React.ReactNode }) {
+	const iconStyle =
+		"text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0";
 	const roots = [
 		{
 			label: "Dashboard",
 			href: "/admin/dashboard",
-			icon: (
-				<IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-			),
+			icon: <IconBrandTabler className={iconStyle} />,
+		},
+
+		{
+			label: "Clients",
+			href: "/admin/clients",
+			icon: <IconUsers className={iconStyle} />,
 		},
 		{
 			label: "Notification",
 			href: "/admin/notification",
-			icon: (
-				<IconNotification className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-			),
+			icon: <IconNotification className={iconStyle} />,
 		},
 		{
 			label: "Logout",
-			href: "#",
-			icon: (
-				<IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-			),
+			href: "/signin",
+			icon: <IconArrowLeft className={iconStyle} />,
 		},
 	];
 	const [open, setOpen] = useState(false);
@@ -61,6 +63,9 @@ export function SidebarComponent() {
 									onClick={() => {
 										setOpen(false);
 										navigate(link.href);
+										if (link.href === "/signin") {
+											Cookies.remove("auth_token");
+										}
 									}}
 									to={link.href}
 									key={link.label}>
@@ -89,17 +94,8 @@ export function SidebarComponent() {
 				</SidebarBody>
 			</Sidebar>
 			<Panel>
-				<h1 className="my-4">{`Dashboard/*`}</h1>
-				<Routes>
-					<Route
-						path="admin/dashboard"
-						element={<Dashboard />}
-					/>
-					<Route
-						path="admin/natification"
-						element={<Notification />}
-					/>
-				</Routes>
+				<h1 className="my-4">Admin/*</h1>
+				{children}
 			</Panel>
 		</div>
 	);
