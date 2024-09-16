@@ -10,8 +10,9 @@ const instance: AxiosInstance = axios.create({
 
 instance.interceptors.request.use((config) => {
 	const token = Cookies.get("auth_token");
+	console.log("🚀 ~ instance.interceptors.request.use ~ token:", token)
 	if (token) {
-		config.headers.Authorization = token;
+		config.headers.Authorization = `Bearer ${token}`;
 	}
 	return config;
 });

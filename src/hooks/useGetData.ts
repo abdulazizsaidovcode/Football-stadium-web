@@ -9,6 +9,7 @@ const useData = (key: string) => {
 	return useQuery({
 		queryKey: [key],
 		queryFn: () => fetchData({ key }),
+		retry: 1,
 	});
 };
 
