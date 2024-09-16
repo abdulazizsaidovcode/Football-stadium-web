@@ -2,7 +2,6 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Webpage from "./pages/web";
 import Navbar from "./components/custom/Navbar";
 import { SignIn } from "./pages/Auth/SignIn";
-import AdminPage from "./pages/admin";
 // import { Dashboard } from "./pages/admin/dashboard";
 import { SidebarComponent } from "./components/ui/sidebar-component";
 // import Notification from "./pages/admin/notification";
@@ -23,10 +22,6 @@ function App() {
 				<Route
 					path="/signin"
 					element={<SignIn />}
-				/>
-				<Route
-					path="/admin"
-					element={<AdminPage />}
 				/>
 				<Route
 					path="*"
