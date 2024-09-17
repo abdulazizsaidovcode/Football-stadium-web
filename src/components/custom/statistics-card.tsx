@@ -1,5 +1,4 @@
-import { StatType } from "../../pages/web";
-
+import { StatType } from "../../data/types";
 const StatCard = ({ icon, number, title }: StatType) => {
 	return (
 		<div className="w-[30%] max-800:w-[45%] max-520:w-full max-800:mb-[50px] max-800:mx-auto hover:scale-110 transition text-center cursor-pointer p-8 border rounded-lg shadow-md flex flex-col items-center">

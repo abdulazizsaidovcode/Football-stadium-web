@@ -7,11 +7,7 @@ import stadium from "../../assets/stadium.png";
 import appstore from "../../assets/appstore.png";
 import googleplay from "../../assets/googleplay.png";
 import Title from "../../components/custom/Title";
-export interface StatType {
-	icon: JSX.Element;
-	number: string;
-	title: string;
-}
+import { StatType } from "../../data/types";
 
 function Webpage() {
 	const words = `

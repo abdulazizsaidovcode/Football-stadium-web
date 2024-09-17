@@ -7,6 +7,16 @@ body {
 html {
 	scroll-behavior: smooth;
 }
+.no-visible-scrollbar {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	-webkit-overflow-scrolling: touch;
+}
+
+.no-visible-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

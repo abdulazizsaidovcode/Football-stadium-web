@@ -10,7 +10,7 @@ import {
 } from "@tabler/icons-react";
 import Cookies from "js-cookie";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom"; // Import Link from react-router-dom
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "../../lib/utils";
 
 const logoStyle =
