@@ -4,6 +4,7 @@ import Notification from "./notification";
 import { SidebarComponent } from "../../components/ui/sidebar-component";
 import Clients from "./clients";
 import Masters from "./masters";
+import NotMasters from "./not_masters";
 
 function AdminPage() {
 	return (
@@ -14,6 +15,7 @@ function AdminPage() {
 					<Route path="notification" element={<Notification />} /> 
 					<Route path="clients" element={<Clients />} />
 					<Route path="masters" element={<Masters/>}/> 
+					<Route path="not_masters" element={<NotMasters/>}/>
 				</Routes>
 			</SidebarComponent>
 		</div>

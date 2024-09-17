@@ -20,3 +20,5 @@ const useData = (key: string) => {
 };
 
 export const useGetData = (key: string) => useData(key);
+
+
