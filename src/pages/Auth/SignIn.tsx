@@ -25,8 +25,8 @@ export function SignIn() {
 		try {
 			const response = await instance.post("/auth/login", data);
 			if (response.status === 200) {
-				navigate("/admin/dashboard");
 				Cookies.set("auth_token", response.data.data.token);
+				navigate("/admin/dashboard");
 			}
 		} catch (error) {
 			console.error("Sign-in error:", error);

@@ -1,13 +1,17 @@
-import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { Navigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
-interface PrivateRouteProps {
-	redirectTo: string;
+interface ProtectedRouteProps {
+  children: JSX.Element;
 }
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ redirectTo }) => {
-	const { isAuth } = useAuth();
-	return isAuth ? <Outlet /> : <Navigate to={redirectTo} />;
+
+const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+  const token = Cookies.get("auth_token");
+  if (!token) {
+    return <Navigate to="/signin" replace />;
+  }
+
+  return children;
 };
 
-export default PrivateRoute;
+export default ProtectedRoute;

@@ -1,9 +1,9 @@
-import { Route, Routes, useLocation } from "react-router-dom";
-import Webpage from "./pages/web";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/custom/Navbar";
 import { SignIn } from "./pages/auth/SignIn";
 import AdminPage from "./pages/admin";
-import PrivateRoute from "./components/custom/private-route";
+import Webpage from "./pages/web";
+import ProtectedRoute from "./components/custom/private-route";
 
 function App() {
 	const location = useLocation();
@@ -13,11 +13,15 @@ function App() {
 		<div className="bg-gray-100 min-h-screen">
 			{pathname === "/" ? <Navbar /> : null}
 			<Routes>
-				<Route path="/" element={<Webpage />} />
 				<Route path="/signin" element={<SignIn />} />
-				<Route path="/admin/*" element={<PrivateRoute redirectTo="/signin" />}>
-					<Route path="*" element={<AdminPage />} />
-				</Route>
+				<Route path="/" element={<Webpage />} />
+				<Route path="/admin/*" element={
+						<ProtectedRoute>
+							<AdminPage />
+						</ProtectedRoute>
+					}
+				/>
+				<Route path="*" element={<Navigate to="*" replace />} />
 			</Routes>
 		</div>
 	);

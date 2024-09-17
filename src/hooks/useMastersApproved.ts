@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import instance from "../server";
-
+import { toast } from "react-toastify";
 interface ApproveOrRejectType {
 	value: string;
 	id: string;
@@ -22,6 +22,7 @@ const useApproveOrReject = () => {
 			queryClient.invalidateQueries({
 				queryKey: ["user/not/confirmed/master/list"],
 			});
+			toast.success("Invalidate");
 		},
 	});
 };
