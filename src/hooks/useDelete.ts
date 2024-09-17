@@ -11,7 +11,10 @@ const useDeleteFunction = () => {
 		mutationFn: (id: string) => deleteFunction(id),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["user/masters/list"] });
-			
+		},
+		onError: (error) => {
+			console.error("Delete failed:", error);
+			// Optionally display a toast or UI notification for the user
 		},
 	});
 };

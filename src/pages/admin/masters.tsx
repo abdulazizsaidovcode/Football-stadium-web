@@ -21,7 +21,6 @@ const Masters = () => {
 			value: "approved_masters",
 			content: (
 				<div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-xl font-bold text-white bg-gradient-to-r from-black via-gray-800 to-gray-900">
-					<p>Playground tab</p>
 					{confirmedLoading ? (
 						"Loading"
 					) : confirmedMasters ? (
@@ -30,7 +29,6 @@ const Masters = () => {
 							data={confirmedMasters}
 							keys={MasterKeys}
 							type="approved"
-							onAction={handleAction}
 						/>
 					) : (
 						"No data available"
@@ -43,7 +41,6 @@ const Masters = () => {
 			value: "not_approved_masters",
 			content: (
 				<div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-xl font-bold text-white bg-gradient-to-r from-black via-gray-800 to-gray-900">
-					<p className="mb-4">Content tab</p>
 					{notConfirmedLoading ? (
 						"Loading"
 					) : notConfirmedMasters ? (
