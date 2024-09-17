@@ -5,16 +5,10 @@ import { Tabs } from "../../components/ui/tabs";
 import { useStatus } from "../../hooks/useMastersApproved";
 
 const Masters = () => {
-	const {
-		data: confirmedMasters,
-		isLoading: confirmedLoading,
-		refetch: reConfirmed,
-	} = useGetData("user/masters/list");
-	const {
-		data: notConfirmedMasters,
-		isLoading: notConfirmedLoading,
-		refetch: reNotConfirmed,
-	} = useGetData("user/not/confirmed/master/list");
+	const { data: confirmedMasters, isLoading: confirmedLoading } =
+		useGetData("user/masters/list");
+	const { data: notConfirmedMasters, isLoading: notConfirmedLoading } =
+		useGetData("user/not/confirmed/master/list");
 	const { mutate: ApproveOrRejectFunction } = useStatus();
 
 	const handleAction = (id: string, status: string) => {
@@ -37,7 +31,6 @@ const Masters = () => {
 							keys={MasterKeys}
 							type="approved"
 							onAction={handleAction}
-							reFetch={reConfirmed}
 						/>
 					) : (
 						"No data available"
@@ -57,7 +50,6 @@ const Masters = () => {
 						<Table
 							className="bg-transparent"
 							data={notConfirmedMasters}
-							reFetch={reNotConfirmed}
 							keys={MasterKeys}
 							type="not_approved"
 							onAction={handleAction}

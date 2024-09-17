@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { KeysType, MasterType } from "../../data/types";
 import { useDelete } from "../../hooks/useDelete";
 
@@ -8,22 +7,14 @@ const Table = ({
 	type,
 	className,
 	onAction,
-	reFetch,
 }: {
 	data: MasterType[];
 	keys: KeysType[];
 	type: string;
 	className: string;
 	onAction?: (id: string, status: string) => void;
-	reFetch: () => void;  
 }) => {
-	const { mutate: deleteUser, isSuccess } = useDelete();
-
-	useEffect(() => {
-		if (isSuccess) {
-			reFetch(); // Call refetch only after a successful delete
-		}
-	}, [isSuccess, reFetch]); // Include reFetch in the dependency array
+	const { mutate: deleteUser } = useDelete();
 
 	const handleDelete = (id: string) => {
 		try {
