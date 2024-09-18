@@ -29,9 +29,9 @@ export function MainModal({ text, basicFunction, question }: MainModalProps) {
 							{text === "Delete" ? (
 								<IconTrash color="red" />
 							) : text === "Reject" ? (
-								<IconUserCancel />
+								<IconUserCancel color="red" />
 							) : (
-								<IconUserCheck />
+								<IconUserCheck color="green"/>
 							)}
 						</div>
 					</ModalTrigger>

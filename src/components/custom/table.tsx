@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { KeysType, MasterType } from "../../data/types";
 import { useDelete } from "../../hooks/useDelete";
-import { ModalProvider, ModalTrigger, useModal } from "../ui/animated-modal";
 import { MainModal } from "../ui/main-modal";
 
 const Table = ({
@@ -76,22 +75,22 @@ const Table = ({
 										question="Are you sure you want to delete this item?"
 									/>
 								) : (
-									<>
-										<span
-											onClick={() =>
+									<div className="w-[60%] flex justify-between">
+										<MainModal
+											text="Confirm"
+											basicFunction={() =>
 												onAction && onAction(item.id, "MASTER_CONFIRMED")
 											}
-											className="text-blue-600 cursor-pointer mr-4">
-											Confirm
-										</span>
-										<span
-											onClick={() =>
+											question="Do you confirm this master ?"
+										/>
+										<MainModal
+											text="Reject"
+											basicFunction={() =>
 												onAction && onAction(item.id, "MASTER_REJECTED")
 											}
-											className="text-red-600 cursor-pointer">
-											Reject
-										</span>
-									</>
+											question="Are you sure reject this master ?"
+										/>
+									</div>
 								)}
 							</td>
 						</tr>

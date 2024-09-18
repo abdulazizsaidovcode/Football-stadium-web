@@ -9,16 +9,7 @@ const NotMasters = () => {
 	const { mutate: ApproveOrRejectFunction } = useStatus();
 
 	const handleAction = (id: string, status: string) => {
-		try {
-			ApproveOrRejectFunction({ id, value: status });
-			alert(
-				`Master ${
-					status === "MASTER_CONFIRMED" ? "approved" : "rejected"
-				} successfully!`,
-			);
-		} catch (error) {
-			alert(error);
-		}
+		ApproveOrRejectFunction({ id, value: status });
 	};
 	return (
 		<>
