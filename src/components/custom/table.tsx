@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { KeysType, MasterType } from "../../data/types";
+import { AlertModal } from "../ui/alert-modal";
 import { useDelete } from "../../hooks/useDelete";
-import { MainModal } from "../ui/main-modal";
 
 const Table = ({
 	data,
@@ -69,21 +69,25 @@ const Table = ({
 							))}
 							<td className="py-4 px-6">
 								{type === "approved" ? (
-									<MainModal
-										text="Delete"
-										basicFunction={() => handleDelete(item.id)}
-										question="Are you sure you want to delete this item?"
-									/>
+									<>
+										{" "}
+										<AlertModal
+											text="Delete"
+											basicFunction={() => handleDelete(item.id)}
+											question="Are you sure you want to delete this item?"
+										/>
+										
+									</>
 								) : (
 									<div className="w-[60%] flex justify-between">
-										<MainModal
+										<AlertModal
 											text="Confirm"
 											basicFunction={() =>
 												onAction && onAction(item.id, "MASTER_CONFIRMED")
 											}
 											question="Do you confirm this master ?"
 										/>
-										<MainModal
+										<AlertModal
 											text="Reject"
 											basicFunction={() =>
 												onAction && onAction(item.id, "MASTER_REJECTED")

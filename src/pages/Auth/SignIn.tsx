@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import instance from "../../server";
 import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
+import { useMutation } from "@tanstack/react-query";
 
 export function SignIn() {
 	const navigate = useNavigate();
@@ -21,16 +22,21 @@ export function SignIn() {
 		formState: { errors },
 	} = useForm<Inputs>();
 
-	const onSubmit: SubmitHandler<Inputs> = async (data) => {
-		try {
-			const response = await instance.post("/auth/login", data);
-			if (response.status === 200) {
-				Cookies.set("auth_token", response.data.data.token);
-				navigate("/admin/dashboard");
-			}
-		} catch (error) {
+	const mutation = useMutation({
+		mutationFn: async (data: Inputs) => {
+			return await instance.post("/auth/login", data);
+		},
+		onSuccess: (response) => {
+			Cookies.set("auth_token", response.data.data.token);
+			navigate("/admin/dashboard");
+		},
+		onError: (error) => {
 			console.error("Sign-in error:", error);
-		}
+		},
+	});
+
+	const onSubmit: SubmitHandler<Inputs> = (data) => {
+		mutation.mutate(data);
 	};
 
 	return (
@@ -71,11 +77,13 @@ export function SignIn() {
 							<p className="text-red-500 text-sm">{errors.password.message}</p>
 						)}
 					</LabelInputContainer>
-
+					{mutation.status === "error" && (
+						<p className="text-red-500 text-sm my-2">You cannot enter this</p>
+					)}
 					<button
 						className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
 						type="submit">
-						Sign In &rarr;
+						{mutation.status === "pending" ? "Loading..." : "Sign In"}
 						<BottomGradient />
 					</button>
 				</form>

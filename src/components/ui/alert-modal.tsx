@@ -16,7 +16,7 @@ interface MainModalProps {
 	question: string;
 }
 
-export function MainModal({ text, basicFunction, question }: MainModalProps) {
+export function AlertModal({ text, basicFunction, question }: MainModalProps) {
 	return (
 		<ModalProvider>
 			<div className="flex items-center justify-center">
