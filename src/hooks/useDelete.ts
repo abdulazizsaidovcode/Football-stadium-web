@@ -22,9 +22,8 @@ const useDeleteFunction = () => {
 			);
 			return { previousMasters };
 		},
-		onError: (error, id, context) => {
-			queryClient.setQueryData(["user/masters/list"], context?.previousMasters);
-			console.error("Delete failed:", error);
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["user/masters/list"] });
 		},
 	});
 };

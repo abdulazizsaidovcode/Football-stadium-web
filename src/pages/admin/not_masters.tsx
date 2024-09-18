@@ -2,7 +2,6 @@ import Table from "../../components/custom/table";
 import { MasterKeys } from "../../data/data";
 import { useGetData } from "../../hooks/useGetData";
 import { useStatus } from "../../hooks/useMastersApproved";
-
 const NotMasters = () => {
 	const { data: confirmedMasters, isLoading: confirmedLoading } = useGetData(
 		"user/not/confirmed/master/list",
@@ -22,7 +21,7 @@ const NotMasters = () => {
 		}
 	};
 	return (
-		<div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-xl font-bold text-white bg-gradient-to-r from-black via-gray-800 to-gray-900">
+		<>
 			{confirmedLoading ? (
 				"Loading"
 			) : confirmedMasters ? (
@@ -36,7 +35,7 @@ const NotMasters = () => {
 			) : (
 				"No data available"
 			)}
-		</div>
+		</>
 	);
 };
 

@@ -1,36 +1,31 @@
-import Table from "../../components/custom/table";
-import { MasterKeys } from "../../data/data";
-import { useGetData } from "../../hooks/useGetData";
-import { useDelete } from "../../hooks/useDelete";
+import { Tabs } from "../../components/ui/tabs"
+import { ConfirmedMasters } from "./confirmed_masters";
+import NotMasters from "./not_masters";
 
 const Masters = () => {
-	const { data: confirmedMasters, isLoading: confirmedLoading } =
-		useGetData("user/masters/list");
-	const { mutate: deleteUser } = useDelete();
-	const handleDelete = (id: string) => {
-		if (window.confirm("Are you sure you want to delete this user?")) {
-			try {
-				deleteUser(id);
-			} catch (error) {
-				console.error("Failed to delete:", error);
-			}
-		}
-	};
+	const tabs = [
+		{
+			title: "Confirmed Masters",
+			value: "product",
+			content: (
+				<div className="w-full overflow-y-scroll relative h-full rounded-2xl p-10 text-xl md:text-sm font-bold text-white bg-gradient-to-r from-black via-gray-800 to-gray-900">
+					<ConfirmedMasters />
+				</div>
+			),
+		},
+		{
+			title: "Not Confirmed Masters",
+			value: "services",
+			content: (
+				<div className="w-full overflow-y-scroll relative h-full rounded-2xl p-10 text-xl md:text-sm font-bold text-white bg-gradient-to-r from-black via-gray-800 to-gray-900">
+					<NotMasters />
+				</div>
+			),
+		},
+	];
 	return (
-		<div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-xl font-bold text-white bg-gradient-to-r from-black via-gray-800 to-gray-900">
-			{confirmedLoading ? (
-				"Loading"
-			) : confirmedMasters ? (
-				<Table
-					deleteFunction={handleDelete}
-					className={"bg-transparent"}
-					data={confirmedMasters}
-					keys={MasterKeys}
-					type="approved"
-				/>
-			) : (
-				"No data available"
-			)}
+		<div className="h-[20rem] md:h-[40rem] [perspective:1000px] relative b flex flex-col mx-auto w-full  items-start justify-start">
+			<Tabs tabs={tabs} />
 		</div>
 	);
 };

@@ -1,4 +1,5 @@
 import { KeysType, MasterType } from "../../data/types";
+import { useDelete } from "../../hooks/useDelete";
 
 const Table = ({
 	data,
@@ -6,17 +7,25 @@ const Table = ({
 	type,
 	className,
 	onAction,
-	deleteFunction,
 }: {
 	data: MasterType[];
 	keys: KeysType[];
 	type: string;
 	className: string;
 	onAction?: (id: string, status: string) => void;
-	deleteFunction?: (id: string) => void;
 }) => {
+	const { mutate: deleteUser } = useDelete();
+	const handleDelete = (id: string) => {
+		if (window.confirm("Are you sure you want to delete this user?")) {
+			try {
+				deleteUser(id);
+			} catch (error) {
+				console.error("Failed to delete:", error);
+			}
+		}
+	};
 	return (
-		<div className={`overflow-x-auto ${className}`}>
+		<div className={`overflow-x-auto ${className} no-visible-scrollbar`}>
 			<table className="min-w-full bg-transparent border rounded-lg">
 				<thead className="bg-transparent border-b">
 					<tr>
@@ -32,7 +41,7 @@ const Table = ({
 						</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody className="no-visible-scrollbar"> 
 					{data.map((item) => (
 						<tr
 							key={item.id}
@@ -47,7 +56,7 @@ const Table = ({
 							<td className="py-4 px-6">
 								{type === "approved" ? (
 									<span
-										onClick={() => deleteFunction && deleteFunction(item.id)}
+										onClick={() => handleDelete(item.id)}
 										className="text-red-600 cursor-pointer">
 										Delete
 									</span>

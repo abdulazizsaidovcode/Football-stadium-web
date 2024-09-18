@@ -7,7 +7,6 @@ import {
 	IconNotification,
 	IconUsers,
 	IconUserBolt,
-	IconUserCancel,
 } from "@tabler/icons-react";
 import Cookies from "js-cookie";
 import { motion } from "framer-motion";
@@ -29,11 +28,6 @@ export function SidebarComponent({ children }: { children: React.ReactNode }) {
 			label: "Masters",
 			href: "/admin/masters",
 			icon: <IconUserBolt className={iconStyle} />,
-		},
-		{
-			label: "Not Masters",
-			href: "/admin/not_masters",
-			icon: <IconUserCancel className={iconStyle} />,
 		},
 		{
 			label: "Clients",
