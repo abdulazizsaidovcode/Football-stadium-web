@@ -12,3 +12,9 @@ export const ClientKeys = [
 	{ key: "orderCount", title: "Order Count" },
 	{ key: "phoneNumber", title: "Phone Number" },
 ];
+
+export const StatKeys = [
+	{ key: "clientCount", title: "Clients" },
+	{ key: "masterCount", title: "Masters" },
+	{ key: "stadiumCount", title: "Stadiums" },
+];

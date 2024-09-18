@@ -83,7 +83,7 @@ export function SidebarComponent({ children }: { children: React.ReactNode }) {
 					<div>
 						<SidebarLink
 							link={{
-								label: "Manu Arora",
+								label: "Admin",
 								href: "#",
 								icon: (
 									<img

@@ -13,7 +13,7 @@ export interface KeysType {
 }
 export interface StatType {
 	icon: JSX.Element;
-	number: string;
+	number?: number;
 	title: string;
 }
 export type ClassNameType = string;

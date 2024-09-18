@@ -7,31 +7,49 @@ import stadium from "../../assets/stadium.png";
 import appstore from "../../assets/appstore.png";
 import googleplay from "../../assets/googleplay.png";
 import Title from "../../components/custom/Title";
-import { StatType } from "../../data/types";
-
+import { useQuery } from "@tanstack/react-query";
+import instance from "../../server";
 function Webpage() {
 	const words = `
-							Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab, cum
-						repudiandae. Nisi id, neque ex perspiciatis laudantium officiis
-						eveniet nulla, accusantium doloremque at sunt architecto sint,
-						corrupti dolorum quaerat quos! Perspiciatis qui, perferendis
-						suscipit tenetur minima eos, obcaecati a incidunt officiis vero in
-						praesent
+		Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab, cum
+		repudiandae. Nisi id, neque ex perspiciatis laudantium officiis
+		eveniet nulla, accusantium doloremque at sunt architecto sint,
+		corrupti dolorum quaerat quos! Perspiciatis qui, perferendis
+		suscipit tenetur minima eos, obcaecati a incidunt officiis vero in
+		praesent
 	`;
-	const stats: StatType[] = [
+
+	const stats: { icon: JSX.Element; title: string; dataKey: string }[] = [
 		{
 			icon: <FaUsers />,
-			number: "5150",
 			title: "Users",
+			dataKey: "clientCount",
 		},
-		{ icon: <MdStadium />, number: "21", title: "Stadium" },
-		{ icon: <FaUserTie />, number: "50", title: "Stadium Owners" },
+		{
+			icon: <MdStadium />,
+			title: "Stadiums",
+			dataKey: "stadiumCount",
+		},
+		{
+			icon: <FaUserTie />,
+			title: "Stadium Owners",
+			dataKey: "masterCount",
+		},
 	];
+
+	const { data, isLoading } = useQuery({
+		queryKey: ["statistics"],
+		queryFn: async () => {
+			const response = await instance.get("statistic/for/admin/count-all");
+			return response.data.data;
+		},
+	});
+
 	return (
 		<>
 			<div
 				id="home"
-				className="w-[95%] mx-auto max-800:block max-800:text-center container px-4  my-8 flex items-center">
+				className="w-[95%] mx-auto max-800:block max-800:text-center container px-4 my-8 flex items-center">
 				<div className="w-[50vw] max-800:w-full max-800:mx-auto">
 					<Title text="Football Stadiums" />
 					<div className="my-6">
@@ -57,33 +75,32 @@ function Webpage() {
 				/>
 				<div
 					id="stat"
-					className="w-[95%] max-800:flex-wrap max-520:block  container justify-between flex px-[50px] mx-auto mt-[20px] min-h-[200px]  ">
-					{stats.map((stat, i) => (
-						<StatCard
-							key={i}
-							icon={stat.icon}
-							number={stat.number}
-							title={stat.title}
-						/>
-					))}
+					className="w-[95%] max-800:flex-wrap max-520:block container justify-between flex px-[50px] mx-auto mt-[20px] min-h-[200px]">
+					{isLoading
+						? "Loading..."
+						: stats.map((stat, i) => (
+								<StatCard
+									key={i}
+									icon={stat.icon}
+									number={data[stat.dataKey]}
+									title={stat.title}
+								/>
+						  ))}
 				</div>
 			</div>
 			<div
 				id="about"
 				className="my-[50px] max-800:my-[2vw] container mx-auto">
 				<Title
-					text="About US"
+					text="About Us"
 					className="text-center"
 				/>
 				<div className="w-[90%] mx-auto my-20 max-800:my-4 flex justify-around max-800:flex-col-reverse items-center">
 					<TextGenerateEffect
 						className="w-[44%] max-800:w-full max-800:text-center"
-						words={`Xush kelibsiz! Biz, IT CITY jamoasi, futbol stadionlarini qulay va
-						samarali tarzda band qilish bo'yicha mutaxassislarimiz. Bizning
-						maqsadimiz — sizga stadion band qilish jarayonini soddalashtirish va
-						maksimal darajada qulaylik yaratishdir.`}
+						words={`Xush kelibsiz! Biz, IT CITY jamoasi, futbol stadionlarini qulay va samarali tarzda band qilish bo'yicha mutaxassislarimiz. Bizning maqsadimiz — sizga stadion band qilish jarayonini soddalashtirish va maksimal darajada qulaylik yaratishdir.`}
 					/>
-					<div className="w-[30%] max-800:w-[80%] max-800:my-4  overflow-hidden hover:scale-105 transition rounded-xl">
+					<div className="w-[30%] max-800:w-[80%] max-800:my-4 overflow-hidden hover:scale-105 transition rounded-xl">
 						<img
 							className="w-full"
 							src={stadium}
