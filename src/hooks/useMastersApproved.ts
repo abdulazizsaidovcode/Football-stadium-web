@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import instance from "../server";
-import { toast } from "react-toastify";
+import { MasterType } from "../data/types";
 
 interface ApproveOrRejectType {
 	value: string;
@@ -15,21 +15,32 @@ const ApproveOrReject = async ({ value, id }: ApproveOrRejectType) => {
 
 const useApproveOrReject = () => {
 	const queryClient = useQueryClient();
-	const MASTER_LIST_KEY = "user/masters/list";
-	const NOT_CONFIRMED_MASTER_LIST_KEY = "user/not/confirmed/master/list";
 
 	return useMutation({
-		mutationFn: ({ value, id }: ApproveOrRejectType) => ApproveOrReject({ value, id }),
-		onSuccess: (_, { value }) => {
-			queryClient.invalidateQueries({ queryKey: [MASTER_LIST_KEY] });
-			queryClient.invalidateQueries({ queryKey: [NOT_CONFIRMED_MASTER_LIST_KEY] });
-			toast(
-				value === "MASTER_CONFIRMED" ? "Master approved successfully!" : "Master rejected."
+		mutationFn: ({ value, id }: ApproveOrRejectType) =>
+			ApproveOrReject({ value, id }),
+		onMutate: async ({ id }) => {
+			console.log("onmutate");
+
+			await queryClient.cancelQueries({
+				queryKey: ["user/not/confirmed/master/list"],
+			});
+			const previous_not_masters = queryClient.getQueryData<MasterType[]>([
+				"user/not/confirmed/master/list",
+			]);
+			queryClient.setQueryData<MasterType[]>(
+				["user/not/confirmed/master/list"],
+				(old) => old?.filter((not_master) => not_master.id !== id),
 			);
+			return { previous_not_masters };
 		},
-		onError: (error) => {
-			console.error("Approval or Rejection failed:", error);
-			toast.error("Failed to update the master status.");
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: ["user/masters/list"],
+			});
+			queryClient.invalidateQueries({
+				queryKey: ["user/not/confirmed/master/list"],
+			});
 		},
 	});
 };

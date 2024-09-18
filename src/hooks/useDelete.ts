@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import instance from "../server";
 import { MasterType } from "../data/types";
-import { toast } from "react-toastify";
 
 const deleteFunction = async (id: string) => {
 	await instance.delete(`user/${id}`);
@@ -26,10 +25,6 @@ const useDeleteFunction = () => {
 		onError: (error, id, context) => {
 			queryClient.setQueryData(["user/masters/list"], context?.previousMasters);
 			console.error("Delete failed:", error);
-		},
-		onSettled: () => {
-			queryClient.invalidateQueries({ queryKey: ["user/masters/list"] });
-			toast.error("Delete Successfully")
 		},
 	});
 };
