@@ -1,3 +1,5 @@
+import Table from "../../components/custom/table";
+import { ClientKeys } from "../../data/data";
 import { useGetData } from "../../hooks/useGetData";
 
 const Clients = () => {
@@ -5,13 +7,19 @@ const Clients = () => {
 	console.log("🚀 ~ Clients ~ data:", isLoading ? "Loading" : data);
 
 	return (
-		<div>
+		<div className="w-full overflow-y-scroll relative rounded-2xl p-10 text-xl md:text-sm font-bold text-white bg-gradient-to-r from-black via-gray-800 to-gray-900">
 			{isLoading ? (
-				"Loading..."
+				"Loading"
+			) : data ? (
+				<Table
+					className={"bg-transparent"}
+					data={data}
+					keys={ClientKeys}
+					type="approved"
+					delete_key="user/clients/for-admin/list"
+				/>
 			) : (
-				<ul>
-					<li>loaded</li>
-				</ul>
+				"No data available"
 			)}
 		</div>
 	);

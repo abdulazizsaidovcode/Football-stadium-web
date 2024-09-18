@@ -8,7 +8,7 @@ const Masters = () => {
 			title: "Confirmed Masters",
 			value: "product",
 			content: (
-				<div className="w-full overflow-y-scroll relative h-full rounded-2xl p-10 text-xl md:text-sm font-bold text-white bg-gradient-to-r from-black via-gray-800 to-gray-900">
+				<div className="w-full relative h-full rounded-2xl p-10 text-xl md:text-sm font-bold text-white bg-gradient-to-r from-black via-gray-800 to-gray-900">
 					<ConfirmedMasters />
 				</div>
 			),
@@ -17,7 +17,7 @@ const Masters = () => {
 			title: "Not Confirmed Masters",
 			value: "services",
 			content: (
-				<div className="w-full overflow-y-scroll relative h-full rounded-2xl p-10 text-xl md:text-sm font-bold text-white bg-gradient-to-r from-black via-gray-800 to-gray-900">
+				<div className="w-full relative h-full rounded-2xl p-10 text-xl md:text-sm font-bold text-white bg-gradient-to-r from-black via-gray-800 to-gray-900">
 					<NotMasters />
 				</div>
 			),

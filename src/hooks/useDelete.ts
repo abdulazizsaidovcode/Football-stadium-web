@@ -6,26 +6,24 @@ const deleteFunction = async (id: string) => {
 	await instance.delete(`user/${id}`);
 };
 
-const useDeleteFunction = () => {
+const useDeleteFunction = (key: string) => {
 	const queryClient = useQueryClient();
 	return useMutation({
 		mutationFn: (id: string) => deleteFunction(id),
 		onMutate: async (id: string) => {
 			console.log("onmutate");
 
-			await queryClient.cancelQueries({ queryKey: ["user/masters/list"] });
-			const previousMasters = queryClient.getQueryData<MasterType[]>([
-				"user/masters/list",
-			]);
-			queryClient.setQueryData<MasterType[]>(["user/masters/list"], (old) =>
+			await queryClient.cancelQueries({ queryKey: [key] });
+			const previousMasters = queryClient.getQueryData<MasterType[]>([key]);
+			queryClient.setQueryData<MasterType[]>([key], (old) =>
 				old?.filter((master) => master.id !== id),
 			);
 			return { previousMasters };
 		},
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["user/masters/list"] });
+			queryClient.invalidateQueries({ queryKey: [key] });
 		},
 	});
 };
 
-export const useDelete = () => useDeleteFunction();
+export const useDelete = (key: string) => useDeleteFunction(key);

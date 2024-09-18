@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { KeysType, MasterType } from "../../data/types";
 import { useDelete } from "../../hooks/useDelete";
 
@@ -7,14 +8,25 @@ const Table = ({
 	type,
 	className,
 	onAction,
+	itemsPerPage = 8,
+	delete_key,
 }: {
 	data: MasterType[];
 	keys: KeysType[];
 	type: string;
 	className: string;
 	onAction?: (id: string, status: string) => void;
+	itemsPerPage?: number;
+	delete_key?: string;
 }) => {
-	const { mutate: deleteUser } = useDelete();
+	const { mutate: deleteUser } = useDelete(delete_key || "");
+	const [currentPage, setCurrentPage] = useState(1);
+	const totalPages = Math.ceil(data.length / itemsPerPage);
+	const paginatedData = data.slice(
+		(currentPage - 1) * itemsPerPage,
+		currentPage * itemsPerPage,
+	);
+
 	const handleDelete = (id: string) => {
 		if (window.confirm("Are you sure you want to delete this user?")) {
 			try {
@@ -24,8 +36,15 @@ const Table = ({
 			}
 		}
 	};
+
+	const handlePageChange = (newPage: number) => {
+		if (newPage >= 1 && newPage <= totalPages) {
+			setCurrentPage(newPage);
+		}
+	};
+
 	return (
-		<div className={`overflow-x-auto ${className} no-visible-scrollbar`}>
+		<div className={`overflow-x-auto ${className}`}>
 			<table className="min-w-full bg-transparent border rounded-lg">
 				<thead className="bg-transparent border-b">
 					<tr>
@@ -41,8 +60,8 @@ const Table = ({
 						</th>
 					</tr>
 				</thead>
-				<tbody className="no-visible-scrollbar"> 
-					{data.map((item) => (
+				<tbody className="no-visible-scrollbar">
+					{paginatedData.map((item) => (
 						<tr
 							key={item.id}
 							className="border-b">
@@ -83,6 +102,31 @@ const Table = ({
 					))}
 				</tbody>
 			</table>
+
+			{/* Pagination controls */}
+			<div className="flex justify-between items-center py-4">
+				<button
+					onClick={() => handlePageChange(currentPage - 1)}
+					className={`px-4 py-2 bg-gray-800 text-white rounded ${
+						currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+					}`}
+					disabled={currentPage === 1}>
+					Previous
+				</button>
+
+				<span className="text-white">
+					Page {currentPage} of {totalPages}
+				</span>
+
+				<button
+					onClick={() => handlePageChange(currentPage + 1)}
+					className={`px-4 py-2 bg-gray-800 text-white rounded ${
+						currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+					}`}
+					disabled={currentPage === totalPages}>
+					Next
+				</button>
+			</div>
 		</div>
 	);
 };
