@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { KeysType, MasterType } from "../../data/types";
 import { useDelete } from "../../hooks/useDelete";
+import { ModalProvider, ModalTrigger, useModal } from "../ui/animated-modal";
+import { MainModal } from "../ui/main-modal";
 
 const Table = ({
 	data,
@@ -8,7 +10,7 @@ const Table = ({
 	type,
 	className,
 	onAction,
-	itemsPerPage = 8,
+	itemsPerPage = 6,
 	delete_key,
 }: {
 	data: MasterType[];
@@ -28,13 +30,7 @@ const Table = ({
 	);
 
 	const handleDelete = (id: string) => {
-		if (window.confirm("Are you sure you want to delete this user?")) {
-			try {
-				deleteUser(id);
-			} catch (error) {
-				console.error("Failed to delete:", error);
-			}
-		}
+		deleteUser(id);
 	};
 
 	const handlePageChange = (newPage: number) => {
@@ -74,11 +70,11 @@ const Table = ({
 							))}
 							<td className="py-4 px-6">
 								{type === "approved" ? (
-									<span
-										onClick={() => handleDelete(item.id)}
-										className="text-red-600 cursor-pointer">
-										Delete
-									</span>
+									<MainModal
+										text="Delete"
+										basicFunction={() => handleDelete(item.id)}
+										question="Are you sure you want to delete this item?"
+									/>
 								) : (
 									<>
 										<span
@@ -102,15 +98,14 @@ const Table = ({
 					))}
 				</tbody>
 			</table>
-
-			{/* Pagination controls */}
 			<div className="flex justify-between items-center py-4">
 				<button
 					onClick={() => handlePageChange(currentPage - 1)}
 					className={`px-4 py-2 bg-gray-800 text-white rounded ${
 						currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
 					}`}
-					disabled={currentPage === 1}>
+					disabled={currentPage === 1}
+					aria-label="Previous page">
 					Previous
 				</button>
 
@@ -123,7 +118,8 @@ const Table = ({
 					className={`px-4 py-2 bg-gray-800 text-white rounded ${
 						currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
 					}`}
-					disabled={currentPage === totalPages}>
+					disabled={currentPage === totalPages}
+					aria-label="Next page">
 					Next
 				</button>
 			</div>
