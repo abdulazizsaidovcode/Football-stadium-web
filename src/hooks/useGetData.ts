@@ -8,6 +8,8 @@ interface DataResponse {
 }
 
 const fetchData = async ({ key }: { key: string }): Promise<MasterType[]> => {
+	console.log(key);
+
 	const response = await instance.get<DataResponse>(key);
 	return response.data.data.object;
 };
