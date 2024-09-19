@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import Navbar from "./components/custom/Navbar";
 import { SignIn } from "./pages/auth/SignIn";
 import AdminPage from "./pages/admin";
 import Webpage from "./pages/web";
 import ProtectedRoute from "./components/custom/private-route";
+import Navbar from "./components/custom/Navbar";
 
 function App() {
 	const location = useLocation();

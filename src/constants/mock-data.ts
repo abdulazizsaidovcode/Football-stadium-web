@@ -6,12 +6,19 @@ export const fakeChartData: {
 } = {
 	series: [
 		{
-			name: "Desktops",
+			name: "Schools",
 			data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+		},
+		{
+			name: "University",
+			data: [10, 60, 20, 10, 49, 62, 150, 91, 148],
 		},
 	],
 	options: {
 		chart: {
+			toolbar: {
+				show: false,
+			},
 			type: "line",
 			zoom: {
 				enabled: false,

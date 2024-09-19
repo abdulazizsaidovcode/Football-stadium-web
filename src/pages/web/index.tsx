@@ -6,7 +6,7 @@ import { TextGenerateEffect } from "../../components/ui/text-generate-effect";
 import stadium from "../../assets/stadium.png";
 import appstore from "../../assets/appstore.png";
 import googleplay from "../../assets/googleplay.png";
-import Title from "../../components/custom/Title";
+import Title from "../../components/custom/title";
 import { useQuery } from "@tanstack/react-query";
 import instance from "../../server/config";
 function Webpage() {
