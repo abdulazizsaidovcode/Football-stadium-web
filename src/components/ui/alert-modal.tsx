@@ -35,7 +35,7 @@ export function AlertModal({ text, basicFunction, question }: MainModalProps) {
 							)}
 						</div>
 					</ModalTrigger>
-					<ModalBody>
+					<ModalBody className="max-w-fit">
 						<ModalContent>
 							<h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
 								{question}

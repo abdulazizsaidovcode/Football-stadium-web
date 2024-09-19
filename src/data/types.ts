@@ -1,4 +1,4 @@
-type StadiumDtoListType = null | {
+export interface StadiumFeaturesType {
 	id: string;
 	name: string;
 	number: number;
@@ -18,7 +18,7 @@ type StadiumDtoListType = null | {
 	shower: boolean;
 	shopping: boolean;
 	toilet: boolean;
-};
+}
 
 export interface MasterType {
 	firstName: string;
@@ -28,7 +28,6 @@ export interface MasterType {
 	phoneNumber: string;
 	role: string;
 	userStatus: string;
-	stadiumDtoList: StadiumDtoListType;
 }
 export interface KeysType {
 	key: string;
