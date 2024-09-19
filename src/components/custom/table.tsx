@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { KeysType, MasterType } from "../../data/types";
-import { AlertModal } from "../ui/alert-modal";
+import { AlertModal } from "../custom/alert-modal";
 import { useDelete } from "../../hooks/useDelete";
-import MasterInfoModal from "../ui/master-info-modal";
+import MasterInfoModal from "./master-info-modal";
 
 const Table = ({
 	data,

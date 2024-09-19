@@ -8,7 +8,7 @@ import {
 	ModalFooter,
 	ModalProvider,
 	ModalTrigger,
-} from "./animated-modal";
+} from "../ui/animated-modal";
 
 interface MainModalProps {
 	text: string;
