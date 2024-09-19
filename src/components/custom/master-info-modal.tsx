@@ -14,7 +14,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import instance from "../../server/config";
 import { BackgroundGradient } from "../ui/background-gradient";
-import { StadiumFeaturesType } from "../../data/types";
+import { StadiumFeaturesType } from "../../constants/types";
 
 const MasterInfoModal = ({ id }: { id: string }) => {
 	const {

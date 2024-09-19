@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-import { fakeChartData } from "../../mock/mock-data";
+import { fakeChartData } from "../../constants/mock-data";
 
 interface ChartData {
 	series: { name: string; data: number[] }[];

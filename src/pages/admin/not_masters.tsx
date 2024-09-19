@@ -1,5 +1,5 @@
 import Table from "../../components/custom/table";
-import { MasterKeys } from "../../data/data";
+import { MasterKeys } from "../../constants";
 import { useGetData } from "../../hooks/useGetData";
 import { useStatus } from "../../hooks/useMastersApproved";
 const NotMasters = () => {

@@ -1,5 +1,5 @@
 import Table from "../../components/custom/table";
-import { ClientKeys } from "../../data/data";
+import { ClientKeys } from "../../constants";
 import { useGetData } from "../../hooks/useGetData";
 
 const Clients = () => {

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import instance from "../server/config";
-import { MasterType } from "../data/types";
+import { MasterType } from "../constants/types";
 
 interface ApproveOrRejectType {
 	value: string;

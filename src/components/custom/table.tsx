@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { KeysType, MasterType } from "../../data/types";
+import { KeysType, MasterType } from "../../constants/types";
 import { AlertModal } from "../custom/alert-modal";
 import { useDelete } from "../../hooks/useDelete";
 import MasterInfoModal from "./master-info-modal";

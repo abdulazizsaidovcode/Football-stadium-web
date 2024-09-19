@@ -1,4 +1,4 @@
-import { ClassNameType } from "../../data/types";
+import { ClassNameType } from "../../constants/types";
 
 const Title = ({
 	text,
