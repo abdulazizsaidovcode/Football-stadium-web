@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import instance from "../server";
+import instance from "../server/config";
 import { MasterType } from "../data/types";
 interface DataResponse {
 	data: {

@@ -12,7 +12,7 @@ import {
 	ModalTrigger,
 } from "../ui/animated-modal";
 import { useQuery } from "@tanstack/react-query";
-import instance from "../../server";
+import instance from "../../server/config";
 import { BackgroundGradient } from "../ui/background-gradient";
 import { StadiumFeaturesType } from "../../data/types";
 

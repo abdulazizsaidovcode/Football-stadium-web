@@ -3,7 +3,7 @@ import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { BottomGradient, LabelInputContainer } from "../../components/ui/label";
 import { SubmitHandler, useForm } from "react-hook-form";
-import instance from "../../server";
+import instance from "../../server/config";
 import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
 import { useMutation } from "@tanstack/react-query";

@@ -8,7 +8,7 @@ import appstore from "../../assets/appstore.png";
 import googleplay from "../../assets/googleplay.png";
 import Title from "../../components/custom/Title";
 import { useQuery } from "@tanstack/react-query";
-import instance from "../../server";
+import instance from "../../server/config";
 function Webpage() {
 	const words = `
 		Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab, cum
