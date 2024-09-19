@@ -53,7 +53,9 @@ export const ModalTrigger = ({
 				"px-4 py-2 rounded-md text-black dark:text-white text-center relative overflow-hidden",
 				className,
 			)}
-			onClick={() => setOpen(true)}>
+			onClick={() => {
+				setOpen(true);
+			}}>
 			{children}
 		</button>
 	);

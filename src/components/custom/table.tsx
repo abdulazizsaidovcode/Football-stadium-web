@@ -2,6 +2,7 @@ import { useState } from "react";
 import { KeysType, MasterType } from "../../data/types";
 import { AlertModal } from "../ui/alert-modal";
 import { useDelete } from "../../hooks/useDelete";
+import MasterInfoModal from "../ui/master-info-modal";
 
 const Table = ({
 	data,
@@ -64,19 +65,25 @@ const Table = ({
 								<td
 									key={key.key}
 									className="py-4 px-6 text-white">
-									{item[key.key as keyof MasterType] ?? "N/A"}
+									{(item[key.key as keyof MasterType] as
+										| string
+										| number
+										| null) ?? "N/A"}
 								</td>
 							))}
-							<td className="py-4 px-6">
+
+							<td className="py-4 px-6 flex w-[80%] justify-between">
 								{type === "approved" ? (
 									<>
-										{" "}
 										<AlertModal
 											text="Delete"
 											basicFunction={() => handleDelete(item.id)}
 											question="Are you sure you want to delete this item?"
 										/>
-										
+										{delete_key === "user/masters/list" &&
+										type === "approved" ? (
+											<MasterInfoModal id={item.id} />
+										) : null}
 									</>
 								) : (
 									<div className="w-[60%] flex justify-between">
