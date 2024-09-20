@@ -4,6 +4,7 @@ import Notification from "./notification";
 import { SidebarComponent } from "../../components/custom/sidebar-component";
 import Clients from "./clients";
 import Masters from "./masters";
+import AdminAccount from "./admin_account";
 
 function AdminPage() {
 	return (
@@ -13,6 +14,7 @@ function AdminPage() {
 					<Route path="dashboard" element={<Dashboard />} />
 					<Route path="notification" element={<Notification />} /> 
 					<Route path="clients" element={<Clients />} />
+					<Route path="account" element={<AdminAccount/>}/>
 					<Route path="masters" element={<Masters/>}/> 
 				</Routes>
 			</SidebarComponent>

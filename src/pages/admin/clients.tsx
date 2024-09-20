@@ -14,7 +14,7 @@ const Clients = () => {
 				<Table
 					data={data}
 					keys={ClientKeys}
-					type="client"
+					type="approved"
 					delete_key="user/clients/for-admin/list"
 				/>
 			) : (

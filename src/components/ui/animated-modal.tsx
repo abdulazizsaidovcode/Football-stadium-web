@@ -103,7 +103,7 @@ export const ModalBody = ({
 					<motion.div
 						ref={modalRef}
 						className={cn(
-							"min-h-[50%] max-h-[90%] md:min-w-fit bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden",
+							"min-h-[30%] max-h-[90%] md:min-w-fit bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden",
 							className,
 						)}
 						initial={{
@@ -186,12 +186,18 @@ const Overlay = ({ className }: { className?: string }) => {
 	);
 };
 
-export const CloseIcon = ({ text }: { text: string }) => {
+export const CloseIcon = ({ text, type }: { type?: string; text: string }) => {
 	const { setOpen } = useModal();
 	return (
 		<button
-			onClick={() => setOpen(false)}
-			className="px-2 py-1 bg-gray-200 text-black dark:bg-black dark:border-black dark:text-white border border-gray-300 rounded-md text-sm w-28">
+			onClick={() => {
+				setOpen(false);
+			}}
+			className={`px-2 py-1 text-white rounded-md text-sm w-28 ${
+				type === "Confirm"
+					? "bg-red-600 border border-red-600"
+					: "bg-green-600 border border-green-600"
+			}`}>
 			{text}
 		</button>
 	);
@@ -211,7 +217,11 @@ export const AcceptIcon = ({
 				setOpen(false);
 				accept_function();
 			}}
-			className="bg-black text-white dark:bg-white dark:text-black text-sm px-2 py-1 rounded-md border border-black w-28">
+			className={`text-white text-sm px-2 py-1 rounded-md  ${
+				text === "Confirm"
+					? " bg-green-600 border border-green-600"
+					: "bg-red-600 border border-red-600"
+			} w-28 `}>
 			{text}
 		</button>
 	);

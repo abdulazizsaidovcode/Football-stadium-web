@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { IconBrandTabler, IconUsers, IconUserBolt } from "@tabler/icons-react";
 import { FaRegUserCircle } from "react-icons/fa";
 import Cookies from "js-cookie";
-import { MdNotificationsNone } from "react-icons/md";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { BsPersonCircle } from "react-icons/bs";
 import { BiMenuAltRight, BiMenuAltLeft } from "react-icons/bi";
@@ -37,6 +36,9 @@ export function SidebarComponent({ children }: { children: React.ReactNode }) {
 	const [open, setOpen] = useState(true);
 
 	const [activeLink, setActiveLink] = useState(location.pathname);
+	useEffect(() => {
+		setActiveLink(location.pathname);
+	}, [location.pathname]);
 	const navigate = useNavigate();
 
 	return (
@@ -133,16 +135,19 @@ const Panel = ({ children }: { children: React.ReactNode }) => {
 					</button>
 					<ul
 						className={`w-[220px] overflow-hidden duration-500 text-xl text-left transition-all ${
-							dropdown ? "h-[180px]" : "h-0"
+							dropdown ? "h-[120px]" : "h-0"
 						} bg-gray-100 z-50 absolute right-0 top-[50px] rounded-sm`}>
-						<li className="p-4 flex items-center gap-2 hover:bg-gray-400 hover:text-white cursor-pointer">
+						<li
+							onClick={() => {
+								navigate("account");
+							}}
+							className={cn(
+								"w-full p-4 bg-gray-100 text-black flex items-center gap-2 hover:bg-gray-400 hover:text-white cursor-pointer",
+							)}>
 							<BsPersonCircle />
 							Account
 						</li>
-						<li className="p-4 flex items-center gap-2 hover:bg-gray-400 hover:text-white cursor-pointer">
-							<MdNotificationsNone />
-							Notification
-						</li>
+
 						<li>
 							<LogOutModal
 								basicFunction={() => {

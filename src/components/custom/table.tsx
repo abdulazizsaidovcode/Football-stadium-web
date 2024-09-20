@@ -51,11 +51,6 @@ const Table = ({
 								{key.title}
 							</th>
 						))}
-						{/* {type === "approved" && (
-							<th className="text-left p-4 font-medium border border-[#111827]">
-								Master Status
-							</th>
-						)} */}
 						<th className="text-left p-4 font-medium border border-[#111827]">
 							Actions
 						</th>
@@ -76,11 +71,6 @@ const Table = ({
 										| null) ?? "N/A"}
 								</td>
 							))}
-							{/* {type === "approved" && (
-								<td className="py-4 px-6 border border-[#111827]">
-									{item.userStatus && "Qabul qilingan"}
-								</td>
-							)} */}
 							<td className="py-4 px-6 flex gap-2">
 								{type === "approved" ? (
 									<>
@@ -90,7 +80,7 @@ const Table = ({
 											question="Are you sure you want to delete this item?"
 										/>
 										{delete_key === "user/masters/list" && (
-											<MasterInfoModal id={item.id} />
+											<MasterInfoModal  id={item.id} />
 										)}
 									</>
 								) : (

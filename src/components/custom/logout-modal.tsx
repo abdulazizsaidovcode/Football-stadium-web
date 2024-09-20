@@ -28,7 +28,9 @@ const LogOutModal = ({ basicFunction }: { basicFunction: () => void }) => {
 								</h4>
 							</ModalContent>
 							<ModalFooter className="flex items-center gap-2">
-								<CloseIcon text="No" />
+								<CloseIcon 
+									text="No"
+								/>
 								<AcceptIcon
 									text={"Log Out"}
 									accept_function={basicFunction}
