@@ -12,7 +12,6 @@ export const ConfirmedMasters = () => {
 				"Loading"
 			) : confirmedMasters ? (
 				<Table
-					className={"bg-transparent"}
 					data={confirmedMasters}
 					keys={MasterKeys}
 					type="approved"

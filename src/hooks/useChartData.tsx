@@ -6,7 +6,7 @@ type OrdersData = {
 	options: ApexOptions;
 };
 
-const months = [
+export const months = [
 	"January",
 	"February",
 	"March",
@@ -21,19 +21,33 @@ const months = [
 	"December",
 ];
 
-const chartsConfig: ApexOptions = {
+export const chartConfig: ApexOptions = {
 	chart: {
 		toolbar: {
 			show: false,
 		},
+		height: 350,
+		type: "line",
 		zoom: {
 			enabled: false,
 		},
 	},
 	dataLabels: {
 		enabled: false,
+	
+	},
+	stroke: {
+		curve: "straight",
+	},
+
+	grid: {
+		row: {
+			colors: ["#f3f3f3", "transparent"],
+			opacity: 0.5,
+		},
 	},
 	xaxis: {
+		
 		categories: months,
 	},
 };
@@ -67,7 +81,6 @@ export const useChartData = (data: StatisticData[] | undefined) => {
 			return {
 				series: [{ name: seriesName, data: seriesData }],
 				options: {
-					...chartsConfig,
 					chart: { id: chartId },
 					yaxis: { title: { text: yAxisTitle } },
 				},
@@ -78,24 +91,15 @@ export const useChartData = (data: StatisticData[] | undefined) => {
 
 	const [orderCountData, setOrderCountData] = useState<OrdersData>({
 		series: [],
-		options: {
-			...chartsConfig,
-			yaxis: { title: { text: "Order Count" } },
-		},
+		options: {},
 	});
 	const [totalPriceData, setTotalPriceData] = useState<OrdersData>({
 		series: [],
-		options: {
-			...chartsConfig,
-			yaxis: { title: { text: "Total Price" } },
-		},
+		options: {},
 	});
 	const [clientData, setClientData] = useState<OrdersData>({
 		series: [],
-		options: {
-			...chartsConfig,
-			yaxis: { title: { text: "Client Count" } },
-		},
+		options: {},
 	});
 
 	useEffect(() => {
@@ -122,27 +126,15 @@ export const useChartData = (data: StatisticData[] | undefined) => {
 		} else {
 			setOrderCountData({
 				series: [],
-				options: {
-					...chartsConfig,
-					chart: { id: "orders-line" },
-					yaxis: { title: { text: "Order Count" } },
-				},
+				options: {},
 			});
 			setTotalPriceData({
 				series: [],
-				options: {
-					...chartsConfig,
-					chart: { id: "total-price-line" },
-					yaxis: { title: { text: "Total Price" } },
-				},
+				options: {},
 			});
 			setClientData({
 				series: [],
-				options: {
-					...chartsConfig,
-					chart: { id: "client-count-line" },
-					yaxis: { title: { text: "Client Count" } },
-				},
+				options: {},
 			});
 		}
 	}, [data, createChartData]);

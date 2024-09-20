@@ -1,8 +1,7 @@
 export const MasterKeys = [
 	{ key: "firstName", title: "First Name" },
 	{ key: "lastName", title: "Last Name" },
-	{ key: "password", title: "Password" },
-	{ key: "userStatus", title: "Status" },
+	// { key: "userStatus", title: "Status" },
 	{ key: "phoneNumber", title: "Phone Number" },
 ];
 

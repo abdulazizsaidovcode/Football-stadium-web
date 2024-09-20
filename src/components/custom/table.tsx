@@ -8,15 +8,13 @@ const Table = ({
 	data,
 	keys,
 	type,
-	className,
 	onAction,
-	itemsPerPage = 6,
+	itemsPerPage = 5,
 	delete_key,
 }: {
 	data: MasterType[];
 	keys: KeysType[];
 	type: string;
-	className: string;
 	onAction?: (id: string, status: string) => void;
 	itemsPerPage?: number;
 	delete_key?: string;
@@ -24,10 +22,12 @@ const Table = ({
 	const { mutate: deleteUser } = useDelete(delete_key || "");
 	const [currentPage, setCurrentPage] = useState(1);
 	const totalPages = Math.ceil(data.length / itemsPerPage);
-	const paginatedData = data.slice(
-		(currentPage - 1) * itemsPerPage,
-		currentPage * itemsPerPage,
-	);
+
+	const getPaginatedData = () => {
+		const start = (currentPage - 1) * itemsPerPage;
+		const end = currentPage * itemsPerPage;
+		return data.slice(start, end);
+	};
 
 	const handleDelete = (id: string) => {
 		deleteUser(id);
@@ -40,39 +40,48 @@ const Table = ({
 	};
 
 	return (
-		<div className={`overflow-x-auto ${className}`}>
-			<table className="min-w-full bg-transparent border rounded-lg">
-				<thead className="bg-transparent border-b">
+		<>
+			<table className="min-w-full">
+				<thead>
 					<tr>
 						{keys.map((key) => (
 							<th
 								key={key.key}
-								className="text-left py-3 px-6 font-medium text-white">
+								className="text-left p-4 font-medium border border-[#111827]">
 								{key.title}
 							</th>
 						))}
-						<th className="text-left py-3 px-6 font-medium text-white">
+						{/* {type === "approved" && (
+							<th className="text-left p-4 font-medium border border-[#111827]">
+								Master Status
+							</th>
+						)} */}
+						<th className="text-left p-4 font-medium border border-[#111827]">
 							Actions
 						</th>
 					</tr>
 				</thead>
 				<tbody className="no-visible-scrollbar">
-					{paginatedData.map((item) => (
+					{getPaginatedData().map((item) => (
 						<tr
 							key={item.id}
-							className="border-b">
+							className="border border-[#111827]">
 							{keys.map((key) => (
 								<td
 									key={key.key}
-									className="py-4 px-6 text-white">
+									className="p-4 border border-[#111827]">
 									{(item[key.key as keyof MasterType] as
 										| string
 										| number
 										| null) ?? "N/A"}
 								</td>
 							))}
-
-							<td className="py-4 px-6 flex w-[80%] justify-between">
+							{/* {type === "approved" && (
+								<td className="py-4 px-6 border border-[#111827]">
+									{item.userStatus && "Qabul qilingan"}
+								</td>
+							)} */}
+							<td className="py-4 px-6 flex gap-2">
 								{type === "approved" ? (
 									<>
 										<AlertModal
@@ -80,26 +89,25 @@ const Table = ({
 											basicFunction={() => handleDelete(item.id)}
 											question="Are you sure you want to delete this item?"
 										/>
-										{delete_key === "user/masters/list" &&
-										type === "approved" ? (
+										{delete_key === "user/masters/list" && (
 											<MasterInfoModal id={item.id} />
-										) : null}
+										)}
 									</>
 								) : (
-									<div className="w-[60%] flex justify-between">
+									<div className="flex justify-between gap-4">
 										<AlertModal
 											text="Confirm"
 											basicFunction={() =>
 												onAction && onAction(item.id, "MASTER_CONFIRMED")
 											}
-											question="Do you confirm this master ?"
+											question="Do you confirm this master?"
 										/>
 										<AlertModal
 											text="Reject"
 											basicFunction={() =>
 												onAction && onAction(item.id, "MASTER_REJECTED")
 											}
-											question="Are you sure reject this master ?"
+											question="Are you sure to reject this master?"
 										/>
 									</div>
 								)}
@@ -119,7 +127,7 @@ const Table = ({
 					Previous
 				</button>
 
-				<span className="text-white">
+				<span className="text-gray-800">
 					Page {currentPage} of {totalPages}
 				</span>
 
@@ -133,7 +141,7 @@ const Table = ({
 					Next
 				</button>
 			</div>
-		</div>
+		</>
 	);
 };
 

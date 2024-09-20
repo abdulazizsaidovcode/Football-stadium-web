@@ -7,8 +7,6 @@ import stadium from "../../assets/stadium.png";
 import appstore from "../../assets/appstore.png";
 import googleplay from "../../assets/googleplay.png";
 import Title from "../../components/custom/title";
-import { useQuery } from "@tanstack/react-query";
-import instance from "../../server/config";
 function Webpage() {
 	const words = `
 		Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab, cum
@@ -19,31 +17,23 @@ function Webpage() {
 		praesent
 	`;
 
-	const stats: { icon: JSX.Element; title: string; dataKey: string }[] = [
+	const stats: { icon: JSX.Element; title: string; dataKey: number }[] = [
 		{
 			icon: <FaUsers />,
 			title: "Users",
-			dataKey: "clientCount",
+			dataKey: 60,
 		},
 		{
 			icon: <MdStadium />,
 			title: "Stadiums",
-			dataKey: "stadiumCount",
+			dataKey: 80,
 		},
 		{
 			icon: <FaUserTie />,
 			title: "Stadium Owners",
-			dataKey: "masterCount",
+			dataKey: 90,
 		},
 	];
-
-	const { data, isLoading } = useQuery({
-		queryKey: ["statistics"],
-		queryFn: async () => {
-			const response = await instance.get("statistic/for/admin/count-all");
-			return response.data.data;
-		},
-	});
 
 	return (
 		<>
@@ -76,16 +66,14 @@ function Webpage() {
 				<div
 					id="stat"
 					className="w-[95%] max-800:flex-wrap max-520:block container justify-between flex px-[50px] mx-auto mt-[20px] min-h-[200px]">
-					{isLoading
-						? "Loading..."
-						: stats.map((stat, i) => (
-								<StatCard
-									key={i}
-									icon={stat.icon}
-									number={data[stat.dataKey]}
-									title={stat.title}
-								/>
-						  ))}
+					{stats.map((stat, i) => (
+						<StatCard
+							key={i}
+							icon={stat.icon}
+							number={stat.dataKey}
+							title={stat.title}
+						/>
+					))}
 				</div>
 			</div>
 			<div

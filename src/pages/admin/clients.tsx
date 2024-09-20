@@ -7,15 +7,14 @@ const Clients = () => {
 	console.log("🚀 ~ Clients ~ data:", isLoading ? "Loading" : data);
 
 	return (
-		<div className="w-full relative rounded-2xl p-10 text-xl md:text-sm font-bold text-white bg-gradient-to-r from-black via-gray-800 to-gray-900">
+		<div className="w-full relative h-[90%] rounded-md p-10 md:text-sm text-black bg-gray-100">
 			{isLoading ? (
 				"Loading"
 			) : data ? (
 				<Table
-					className={"bg-transparent"}
 					data={data}
 					keys={ClientKeys}
-					type="approved"
+					type="client"
 					delete_key="user/clients/for-admin/list"
 				/>
 			) : (
