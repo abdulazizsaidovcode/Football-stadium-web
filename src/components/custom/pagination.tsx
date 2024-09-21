@@ -1,7 +1,9 @@
 const Pagination = ({
+	count,
 	prevPage,
 	nextPage,
 }: {
+	count?: number;
 	prevPage: () => void;
 	nextPage: () => void;
 }) => {
@@ -16,7 +18,10 @@ const Pagination = ({
 
 			<button
 				onClick={() => nextPage()}
-				className={`px-4 py-2 bg-gray-800 text-white rounded `}
+				disabled={count ? count < 5 : false}
+				className={`px-4 py-2 bg-gray-800 text-white rounded ${
+					count && count < 5 ? "cursor-not-allowed" : "cursor-pointer"
+				}`}
 				aria-label="Next page">
 				Next
 			</button>

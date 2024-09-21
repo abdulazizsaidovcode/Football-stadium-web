@@ -11,6 +11,8 @@ const Clients = () => {
 		page,
 	);
 
+	console.log(isLoading ? "Loading" : ClientData.data.object.length);
+
 	return (
 		<div className="w-full relative h-[90%] rounded-md p-10 md:text-sm text-black bg-gray-100">
 			<Table
@@ -21,6 +23,7 @@ const Clients = () => {
 				delete_key="user/clients/for-admin/list"
 			/>
 			<Pagination
+				count={ClientData?.data?.object?.length}
 				prevPage={prevPage}
 				nextPage={nextPage}
 			/>

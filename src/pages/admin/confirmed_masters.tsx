@@ -23,6 +23,7 @@ export const ConfirmedMasters = () => {
 				type="approved"
 			/>
 			<Pagination
+				count={confirmedMasters?.data?.object?.length}
 				prevPage={prevPage}
 				nextPage={nextPage}
 			/>
