@@ -11,8 +11,6 @@ const useDeleteFunction = (key: string) => {
 	return useMutation({
 		mutationFn: (id: string) => deleteFunction(id),
 		onMutate: async (id: string) => {
-			console.log("onmutate");
-
 			await queryClient.cancelQueries({ queryKey: [key] });
 			const previousMasters = queryClient.getQueryData<MasterType[]>([key]);
 			queryClient.setQueryData<MasterType[]>([key], (old) =>

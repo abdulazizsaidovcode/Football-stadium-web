@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useGetData } from "./useGetData";
 
 export const usePagination = (storageKey: string) => {
 	const [page, setPage] = useState(() => {
@@ -16,9 +15,4 @@ export const usePagination = (storageKey: string) => {
 	const prevPage = () => setPage((prev) => Math.max(prev - 1, 0));
 
 	return { page, nextPage, prevPage };
-};
-
-export const usePaginatedData = (url: string, page: number) => {
-	const { data, isLoading } = useGetData(url, page);
-	return { data, isLoading };
 };
