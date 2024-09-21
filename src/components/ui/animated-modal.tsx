@@ -202,30 +202,38 @@ export const CloseIcon = ({ text, type }: { type?: string; text: string }) => {
 		</button>
 	);
 };
-
 export const AcceptIcon = ({
 	text,
+	type,
 	accept_function,
+	disabled,
+	className,
 }: {
 	text: string;
-	accept_function: () => void;
+	disabled?: boolean;
+	type?: "button" | "submit" | "reset"; // ensure type is limited to valid button types
+	accept_function?: () => void;
+	className?: string;
 }) => {
 	const { setOpen } = useModal();
 	return (
 		<button
 			onClick={() => {
 				setOpen(false);
-				accept_function();
+				accept_function && accept_function();
 			}}
+			disabled={disabled}
+			type={type}
 			className={`text-white text-sm px-2 py-1 rounded-md  ${
 				text === "Confirm"
 					? " bg-green-600 border border-green-600"
 					: "bg-red-600 border border-red-600"
-			} w-28 `}>
+			} w-28  ${className}`}>
 			{text}
 		</button>
 	);
 };
+
 export const useOutsideClick = (
 	ref: React.RefObject<HTMLDivElement>,
 	callback: Function,

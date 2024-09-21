@@ -9,6 +9,10 @@ import { BiMenuAltRight, BiMenuAltLeft } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { cn } from "../../lib/utils";
 import LogOutModal from "./logout-modal";
+import FormModal from "./form-modal";
+import { useQuery } from "@tanstack/react-query";
+import instance from "../../server/config";
+import { MeType } from "../../constants/types";
 
 export function SidebarComponent({ children }: { children: React.ReactNode }) {
 	const iconStyle =
@@ -87,6 +91,7 @@ export function SidebarComponent({ children }: { children: React.ReactNode }) {
 
 const Panel = ({ children }: { children: React.ReactNode }) => {
 	const [dropdown, setDropdown] = useState(false);
+
 	const navigate = useNavigate();
 	const handleClickOutside = () => {
 		setDropdown(false);
@@ -100,9 +105,23 @@ const Panel = ({ children }: { children: React.ReactNode }) => {
 		};
 	}, []);
 
+	const {
+		data,
+		isLoading,
+	}: {
+		data?: MeType;
+		isLoading?: boolean;
+	} = useQuery({
+		queryKey: ["me"],
+		queryFn: async () => {
+			const response = await instance.get("user/me");
+			return response.data.data;
+		},
+	});
+
 	const logOutFunction = () => {
 		navigate("/signin");
-		Cookies.remove("auth-token");
+		Cookies.remove("auth_token");
 	};
 
 	return (
@@ -138,14 +157,11 @@ const Panel = ({ children }: { children: React.ReactNode }) => {
 							dropdown ? "h-[120px]" : "h-0"
 						} bg-gray-100 z-50 absolute right-0 top-[50px] rounded-sm`}>
 						<li
-							onClick={() => {
-								navigate("account");
-							}}
+							onClick={() => {}}
 							className={cn(
-								"w-full p-4 bg-gray-100 text-black flex items-center gap-2 hover:bg-gray-400 hover:text-white cursor-pointer",
+								"w-full bg-gray-100 text-black flex items-center gap-2 hover:bg-gray-400 hover:text-white cursor-pointer",
 							)}>
-							<BsPersonCircle />
-							Account
+							<FormModal data={isLoading ? null : data} />
 						</li>
 
 						<li>
