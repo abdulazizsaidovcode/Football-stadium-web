@@ -53,13 +53,13 @@ const MasterInfoModal = ({ id }: { id: string }) => {
 							) : stadiumFeatures.data ? (
 								<div className="flex justify-between max-w-[900px]">
 									{stadiumFeatures.data.map((item: StadiumFeaturesType) => (
-										<BackgroundGradient className="rounded-[22px] min-h-[300px] max-h-[400px] h-[400px] max-w-md sm:p-10 bg-black">
-											<h3 className="text-white">{item.name}</h3>
+										<BackgroundGradient className="rounded-sm min-h-[300px] max-h-[400px] h-[400px] max-w-md sm:p-10 bg-gray-200">
+											<h3 className="text-black font-bold text-2xl">{item.name}</h3>
 											<p className="text-sm text-gray-300  my-4">
 												{item.description !== "string" &&
 												item.description !== null
 													? item.description
-													: "No any description"}
+													: <span className="text-red-800 font-bold">"No any description"</span>}
 											</p>
 											<ul className="flex justify-between flex-wrap gap-4">
 												<li>

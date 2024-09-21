@@ -129,8 +129,7 @@ const FormModal = ({ data }: { data: null | MeType | undefined }) => {
 									<Input
 										id="phone"
 										placeholder="Phone Number"
-										type="tel"
-										// pattern="^\+998\d{9}$"
+										type="tel" 
 										disabled={isDisabled}
 										{...register("phoneNumber", {
 											required: "Phone Number is required",

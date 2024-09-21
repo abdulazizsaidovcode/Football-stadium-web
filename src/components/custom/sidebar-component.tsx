@@ -10,9 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { cn } from "../../lib/utils";
 import LogOutModal from "./logout-modal";
 import FormModal from "./form-modal";
-import { useQuery } from "@tanstack/react-query";
-import instance from "../../server/config";
-import { MeType } from "../../constants/types";
+import { useGetData } from "../../hooks/useGetData";
 
 export function SidebarComponent({ children }: { children: React.ReactNode }) {
 	const iconStyle =
@@ -36,6 +34,8 @@ export function SidebarComponent({ children }: { children: React.ReactNode }) {
 	];
 	const location = useLocation();
 	console.log(location.pathname);
+
+	const [title, setTitle] = useState("Dashboard");
 
 	const [open, setOpen] = useState(true);
 
@@ -78,18 +78,25 @@ export function SidebarComponent({ children }: { children: React.ReactNode }) {
 						})}
 						onClick={() => {
 							setActiveLink(root.href);
+							setTitle(root.label);
 							navigate(root.href);
 						}}>
 						<span className="p-4">{root.icon}</span> {root.label}
 					</button>
 				))}
 			</div>
-			<Panel>{children}</Panel>
+			<Panel title={title}>{children}</Panel>
 		</div>
 	);
 }
 
-const Panel = ({ children }: { children: React.ReactNode }) => {
+const Panel = ({
+	children,
+	title,
+}: {
+	children: React.ReactNode;
+	title: string;
+}) => {
 	const [dropdown, setDropdown] = useState(false);
 
 	const navigate = useNavigate();
@@ -105,28 +112,21 @@ const Panel = ({ children }: { children: React.ReactNode }) => {
 		};
 	}, []);
 
-	const {
-		data,
-		isLoading,
-	}: {
-		data?: MeType;
-		isLoading?: boolean;
-	} = useQuery({
-		queryKey: ["me"],
-		queryFn: async () => {
-			const response = await instance.get("user/me");
-			return response.data.data;
-		},
-	});
+	const { data: MeData, isLoading } = useGetData("user/me");
 
 	const logOutFunction = () => {
 		navigate("/signin");
 		Cookies.remove("auth_token");
+		localStorage.removeItem("clientPage");
+		localStorage.removeItem("confirmedPage");
+		localStorage.removeItem("notMaster");
+		localStorage.removeItem("notMasterPage");
 	};
 
 	return (
 		<div className="bg-white w-full h-full">
-			<div className="bg-gray-100 flex transition-all duration-300 justify-end p-5 mb-4">
+			<div className="bg-gray-100 flex transition-all duration-300 justify-between items-center p-5 mb-4">
+				<h1>{title}</h1>
 				<div className="flex items-center relative">
 					<span className="tex-xl font-bold">Admin</span>
 					<button
@@ -157,11 +157,10 @@ const Panel = ({ children }: { children: React.ReactNode }) => {
 							dropdown ? "h-[120px]" : "h-0"
 						} bg-gray-100 z-50 absolute right-0 top-[50px] rounded-sm`}>
 						<li
-							onClick={() => {}}
 							className={cn(
 								"w-full bg-gray-100 text-black flex items-center gap-2 hover:bg-gray-400 hover:text-white cursor-pointer",
 							)}>
-							<FormModal data={isLoading ? null : data} />
+							<FormModal data={isLoading ? null : MeData.data} />
 						</li>
 
 						<li>
