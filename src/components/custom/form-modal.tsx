@@ -83,7 +83,7 @@ const FormModal = ({ data }: { data: null | MeType | undefined }) => {
 					</div>
 				</ModalTrigger>
 				<ModalBody className="max-w-fit">
-					<ModalContent>
+					<ModalContent className="cursor-default">
 						<div className="flex text-black justify-between">
 							<div>Account</div>
 							<button onClick={() => setIsDisabled(false)}>Edit</button>
@@ -130,6 +130,7 @@ const FormModal = ({ data }: { data: null | MeType | undefined }) => {
 										id="phone"
 										placeholder="Phone Number"
 										type="tel"
+										// pattern="^\+998\d{9}$"
 										disabled={isDisabled}
 										{...register("phoneNumber", {
 											required: "Phone Number is required",

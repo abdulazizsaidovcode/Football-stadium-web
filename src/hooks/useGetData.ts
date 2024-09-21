@@ -7,18 +7,24 @@ interface DataResponse {
 	};
 }
 
-const fetchData = async ({ key }: { key: string }): Promise<MasterType[]> => {
-	console.log(key);
-
-	const response = await instance.get<DataResponse>(key);
+const fetchData = async ({
+	key,
+	page,
+}: {
+	key: string;
+	page: number;
+}): Promise<MasterType[]> => {
+	const response = await instance.get<DataResponse>(
+		`${key}?page=${page}&size=5`,
+	);
 	return response.data.data.object;
 };
 
-const useData = (key: string) => {
+const useData = (key: string, page: number) => {
 	return useQuery({
-		queryKey: [key],
-		queryFn: () => fetchData({ key }),
+		queryKey: [key, page],
+		queryFn: () => fetchData({ key, page }),
 	});
 };
 
-export const useGetData = (key: string) => useData(key);
+export const useGetData = (key: string, page: number) => useData(key, page);

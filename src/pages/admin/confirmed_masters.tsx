@@ -1,25 +1,26 @@
 import Table from "../../components/custom/table";
+import Pagination from "../../components/custom/pagination";
 import { MasterKeys } from "../../constants";
-import { useGetData } from "../../hooks/useGetData";
+import { usePaginatedData, usePagination } from "../../hooks/usePaginatedData";
 
 export const ConfirmedMasters = () => {
+	const { page, nextPage, prevPage } = usePagination("confirmedPage");
 	const { data: confirmedMasters, isLoading: confirmedLoading } =
-		useGetData("user/masters/list");
+		usePaginatedData("user/masters/list", page);
 
 	return (
 		<>
-			{confirmedLoading ? (
-				"Loading"
-			) : confirmedMasters ? (
-				<Table
-					data={confirmedMasters}
-					keys={MasterKeys}
-					type="approved"
-					delete_key="user/masters/list"
-				/>
-			) : (
-				"No data available"
-			)}
+			<Table
+				data={confirmedMasters || []}
+				keys={MasterKeys}
+				delete_key="user/masters/list"
+				type="approved"
+				isLoading={confirmedLoading}
+			/>
+			<Pagination
+				prevPage={prevPage}
+				nextPage={nextPage}
+			/>
 		</>
 	);
 };

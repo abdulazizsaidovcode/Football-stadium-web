@@ -1,6 +1,5 @@
-import { Route, Routes } from "react-router-dom"; // Only import from 'react-router-dom'
+import { Route, Routes } from "react-router-dom";
 import { Dashboard } from "./dashboard";
-import Notification from "./notification";
 import { SidebarComponent } from "../../components/custom/sidebar-component";
 import Clients from "./clients";
 import Masters from "./masters";
@@ -12,10 +11,6 @@ function AdminPage() {
 					<Route
 						path="dashboard"
 						element={<Dashboard />}
-					/>
-					<Route
-						path="notification"
-						element={<Notification />}
 					/>
 					<Route
 						path="clients"

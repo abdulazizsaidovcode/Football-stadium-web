@@ -1,25 +1,27 @@
 import Table from "../../components/custom/table";
+import Pagination from "../../components/custom/pagination";
 import { ClientKeys } from "../../constants";
-import { useGetData } from "../../hooks/useGetData";
+import { usePaginatedData, usePagination } from "../../hooks/usePaginatedData";
 
 const Clients = () => {
-	const { data, isLoading } = useGetData("user/clients/for-admin/list");
-	console.log("🚀 ~ Clients ~ data:", isLoading ? "Loading" : data);
+	const { page, nextPage, prevPage } = usePagination("clientPage");
+	const { data, isLoading } = usePaginatedData(
+		"user/clients/for-admin/list",
+		page,
+	);
 
 	return (
 		<div className="w-full relative h-[90%] rounded-md p-10 md:text-sm text-black bg-gray-100">
-			{isLoading ? (
-				"Loading"
-			) : data ? (
-				<Table
-					data={data}
-					keys={ClientKeys}
-					type="approved"
-					delete_key="user/clients/for-admin/list"
-				/>
-			) : (
-				"No data available"
-			)}
+			<Table
+				data={data || []}
+				keys={ClientKeys}
+				type="approved"
+				isLoading={isLoading}
+			/>
+			<Pagination
+				prevPage={prevPage}
+				nextPage={nextPage}
+			/>
 		</div>
 	);
 };
