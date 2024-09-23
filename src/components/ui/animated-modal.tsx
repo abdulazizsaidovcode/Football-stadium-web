@@ -211,7 +211,7 @@ export const AcceptIcon = ({
 }: {
 	text: string;
 	disabled?: boolean;
-	type?: "button" | "submit" | "reset"; // ensure type is limited to valid button types
+	type?: "button" | "submit" | "reset";
 	accept_function?: () => void;
 	className?: string;
 }) => {
@@ -220,11 +220,13 @@ export const AcceptIcon = ({
 		<button
 			onClick={() => {
 				setOpen(false);
-				accept_function && accept_function();
+				if (accept_function) {
+					accept_function();
+				}
 			}}
 			disabled={disabled}
 			type={type}
-			className={`text-white text-sm px-2 py-1 rounded-md  ${
+			className={`text-white text-sm px-2 py-1 rounded-md ${
 				text === "Confirm"
 					? " bg-green-600 border border-green-600"
 					: "bg-red-600 border border-red-600"

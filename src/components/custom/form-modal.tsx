@@ -1,4 +1,5 @@
 import { BsPersonCircle } from "react-icons/bs";
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa6";
 import {
 	AcceptIcon,
 	CloseIcon,
@@ -7,16 +8,18 @@ import {
 	ModalContent,
 	ModalTrigger,
 } from "../ui/animated-modal";
-import { LabelInputContainer } from "../ui/label";
 import { Input } from "../ui/input";
+import { LabelInputContainer } from "../ui/label";
+import { useEffect, useState, useCallback } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { MeType } from "../../constants/types";
-import { useState, useEffect } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import instance from "../../server/config";
 import Cookies from "js-cookie";
+import { MeType } from "../../constants/types";
 
 const FormModal = ({ data }: { data: null | MeType | undefined }) => {
+	const [visible, setVisible] = useState(true);
+
 	interface Inputs {
 		firstName: string;
 		lastName: string;
@@ -30,10 +33,21 @@ const FormModal = ({ data }: { data: null | MeType | undefined }) => {
 		defaultValues: {
 			firstName: data?.firstName || "",
 			lastName: data?.lastName || "",
-			password: data?.password || "",
+			password: data?.password || null,
 			phoneNumber: data?.phoneNumber || "",
 		},
 	});
+
+	const resetInputs = useCallback(() => {
+		if (data) {
+			reset({
+				firstName: data.firstName,
+				lastName: data.lastName,
+				password: data.password,
+				phoneNumber: data.phoneNumber,
+			});
+		}
+	}, [data, reset]);
 
 	useEffect(() => {
 		if (data) {
@@ -46,17 +60,19 @@ const FormModal = ({ data }: { data: null | MeType | undefined }) => {
 		}
 	}, [data, reset]);
 
+	const queryClient = useQueryClient();
 	const mutation = useMutation({
 		mutationFn: async (formData: Inputs) => {
-			const response = await instance.put(`user/update`, { data: formData });
+			const response = await instance.put(`user/update`, formData);
 			return response.data;
 		},
 		onSuccess: (response) => {
-			if (response) {
+			if (response?.auth_token) {
 				Cookies.remove("auth_token");
-				Cookies.set("auth_token", response.data);
-				console.log("Auth token updated:", response.data);
+				Cookies.set("auth_token", response.auth_token);
+				console.log("Auth token updated:", response.auth_token);
 			}
+			queryClient.invalidateQueries({ queryKey: ["user/me"] });
 		},
 		onError: (error) => {
 			console.error("Error updating user data:", error);
@@ -64,9 +80,16 @@ const FormModal = ({ data }: { data: null | MeType | undefined }) => {
 	});
 
 	const onSubmit: SubmitHandler<Inputs> = (formData) => {
-		console.log(formData);
-		mutation.mutate(formData);
+		const updatedUser = {
+			firstName: formData.firstName.trim(),
+			lastName: formData.lastName.trim(),
+			password: formData.password === "" ? null : formData.password,
+			phoneNumber: formData.phoneNumber,
+		};
+
 		setIsDisabled(true);
+		setVisible(true);
+		mutation.mutate(updatedUser);
 	};
 
 	return (
@@ -76,6 +99,8 @@ const FormModal = ({ data }: { data: null | MeType | undefined }) => {
 					<div
 						onClick={() => {
 							setIsDisabled(true);
+							resetInputs();
+							setVisible(true);  
 						}}
 						className="w-full flex items-center gap-2">
 						<BsPersonCircle />
@@ -114,25 +139,41 @@ const FormModal = ({ data }: { data: null | MeType | undefined }) => {
 										})}
 									/>
 								</LabelInputContainer>
-								<LabelInputContainer className="mb-4 w-[45%]">
+								<LabelInputContainer className="mb-4 w-[45%] relative">
 									<Input
 										id="password"
-										placeholder="••••••••"
-										type="password"
+										placeholder="Want to change ?   Write new password"
+										type={visible ? "password" : "text"}
 										disabled={isDisabled}
-										{...register("password", {
-											required: "Password is required",
-										})}
+										{...register("password")}
 									/>
+									{!isDisabled && (
+										<div
+											className="absolute right-4 -top-1 cursor-pointer max-w-fit p-2"
+											onClick={() => {
+												setVisible(!visible);
+											}}>
+											{visible ? (
+												<FaRegEyeSlash color="black" />
+											) : (
+												<FaRegEye color="black" />
+											)}
+										</div>
+									)}
 								</LabelInputContainer>
 								<LabelInputContainer className="mb-4 w-[45%]">
 									<Input
 										id="phone"
+										pattern="^\+998\d{9}$"
 										placeholder="Phone Number"
-										type="tel" 
+										type="tel"
 										disabled={isDisabled}
 										{...register("phoneNumber", {
-											required: "Phone Number is required",
+											required: "Phone number is required",
+											pattern: {
+												value: /^\+998\d{9}$/,
+												message: "Phone number format is invalid",
+											},
 										})}
 									/>
 								</LabelInputContainer>
