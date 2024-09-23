@@ -29,8 +29,6 @@ const MasterInfoModal = ({ id }: { id: string }) => {
 		},
 	});
 
-	console.log(isLoading ? "loading" : stadiumFeatures);
-
 	return (
 		<ModalProvider>
 			<div className="flex items-center justify-center">

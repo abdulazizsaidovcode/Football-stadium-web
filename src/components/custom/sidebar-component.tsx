@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { BsPersonCircle } from "react-icons/bs";
 import { BiMenuAltRight, BiMenuAltLeft } from "react-icons/bi";
-
 import { useLocation, useNavigate } from "react-router-dom";
 import { cn } from "../../lib/utils";
 import LogOutModal from "./logout-modal";
@@ -33,7 +32,6 @@ export function SidebarComponent({ children }: { children: React.ReactNode }) {
 		},
 	];
 	const location = useLocation();
-	console.log(location.pathname);
 
 	const [title, setTitle] = useState("Dashboard");
 

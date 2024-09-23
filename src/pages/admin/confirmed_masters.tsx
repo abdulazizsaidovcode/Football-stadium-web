@@ -11,7 +11,6 @@ export const ConfirmedMasters = () => {
 		page,
 	);
 
-	console.log(confirmedLoading ? "loading" : confirmedMasters.data.object);
 
 	return (
 		<>
