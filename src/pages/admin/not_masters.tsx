@@ -15,6 +15,9 @@ const NotMasters = () => {
 		ApproveOrRejectFunction({ id, value: status });
 	};
 
+	const { data, isLoading } = useGetData("statistic/for/admin/count-all");
+	console.log(isLoading ? "loading" : data.data);
+
 	return (
 		<>
 			<Table
@@ -28,6 +31,8 @@ const NotMasters = () => {
 				count={notConfirmedMasters?.data?.object?.length}
 				prevPage={prevPage}
 				nextPage={nextPage}
+				page={page}
+				countAll={data?.data?.masterNew}
 			/>
 		</>
 	);

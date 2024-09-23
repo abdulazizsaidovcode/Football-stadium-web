@@ -10,7 +10,7 @@ export const ConfirmedMasters = () => {
 		"user/masters/list",
 		page,
 	);
-
+	const { data } = useGetData("statistic/for/admin/count-all");
 
 	return (
 		<>
@@ -25,6 +25,8 @@ export const ConfirmedMasters = () => {
 				count={confirmedMasters?.data?.object?.length}
 				prevPage={prevPage}
 				nextPage={nextPage}
+				page={page}
+				countAll={data?.data?.masterConfirmed}
 			/>
 		</>
 	);

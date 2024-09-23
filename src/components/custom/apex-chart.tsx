@@ -93,7 +93,7 @@ const ApexChart: React.FC = () => {
 							options={{
 								...chartConfig,
 								title: {
-									text: "Order Count",
+									text: "Client Count",
 									align: "left",
 								},
 							}}

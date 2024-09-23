@@ -188,20 +188,22 @@ const Overlay = ({ className }: { className?: string }) => {
 
 export const CloseIcon = ({ text, type }: { type?: string; text: string }) => {
 	const { setOpen } = useModal();
+
 	return (
 		<button
-			onClick={() => {
-				setOpen(false);
-			}}
+			onClick={() => setOpen(false)}
+			type="button"
 			className={`px-2 py-1 text-white rounded-md text-sm w-28 ${
 				type === "Confirm"
 					? "bg-red-600 border border-red-600"
 					: "bg-green-600 border border-green-600"
-			}`}>
+			}`}
+			aria-label={text}>
 			{text}
 		</button>
 	);
 };
+
 export const AcceptIcon = ({
 	text,
 	type,

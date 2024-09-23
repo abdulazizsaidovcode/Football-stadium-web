@@ -11,6 +11,8 @@ const Clients = () => {
 		page,
 	);
 
+	const { data } = useGetData("statistic/for/admin/count-all");
+
 	return (
 		<div className="w-full relative h-[90%] rounded-md p-10 md:text-sm text-black bg-gray-100">
 			<Table
@@ -24,6 +26,8 @@ const Clients = () => {
 				count={ClientData?.data?.object?.length}
 				prevPage={prevPage}
 				nextPage={nextPage}
+				page={page}
+				countAll={data?.data?.clientCount}
 			/>
 		</div>
 	);

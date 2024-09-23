@@ -7,6 +7,7 @@ import instance from "../../server/config";
 import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 export function SignIn() {
 	const navigate = useNavigate();
@@ -27,11 +28,12 @@ export function SignIn() {
 			return await instance.post("/auth/login", data);
 		},
 		onSuccess: (response) => {
+			toast.success("Sign in successfully");
 			Cookies.set("auth_token", response.data.data.token);
 			navigate("/admin/dashboard");
 		},
 		onError: (error) => {
-			console.error("Sign-in error:", error);
+			toast.error(error.message);
 		},
 	});
 
