@@ -3,6 +3,7 @@ import { Dashboard } from "./dashboard";
 import { SidebarComponent } from "../../components/custom/sidebar-component";
 import Clients from "./clients";
 import Masters from "./masters";
+import NotFoundPage from "../not-found-page";
 function AdminPage() {
 	return (
 		<div className="w-full">
@@ -19,6 +20,10 @@ function AdminPage() {
 					<Route
 						path="masters"
 						element={<Masters />}
+					/>
+					<Route
+						path="*"
+						element={<NotFoundPage />}
 					/>
 				</Routes>
 			</SidebarComponent>

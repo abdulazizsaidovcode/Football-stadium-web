@@ -1,6 +1,6 @@
 import { BsPersonCircle } from "react-icons/bs";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa6";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
 	AcceptIcon,
@@ -97,7 +97,6 @@ const FormModal = ({ data }: { data: null | MeType | undefined }) => {
 
 	return (
 		<div className="flex w-full items-center gap-2">
-			<ToastContainer />
 			<Modal>
 				<ModalTrigger className="w-full gap-2 p-4 hover:bg-gray-400 hover:text-white cursor-pointer rounded-none">
 					<div

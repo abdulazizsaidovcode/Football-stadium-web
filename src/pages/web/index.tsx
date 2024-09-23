@@ -7,7 +7,11 @@ import stadium from "../../assets/stadium.png";
 import appstore from "../../assets/appstore.png";
 import googleplay from "../../assets/googleplay.png";
 import Title from "../../components/custom/title";
+import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
+
 function Webpage() {
+	const selectedLat = -34.397;
+	const selectedLon = 150.644;
 	const words = `
 		Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab, cum
 		repudiandae. Nisi id, neque ex perspiciatis laudantium officiis
@@ -40,6 +44,19 @@ function Webpage() {
 			<div
 				id="home"
 				className="w-[95%] mx-auto max-800:block max-800:text-center container px-4 my-8 flex items-center">
+				<APIProvider apiKey={import.meta.env.MY_API_KEY}>
+					<Map
+						id="map"
+						style={{ height: "400px", width: "100%" }}
+						zoom={10}
+						center={{
+							lat: selectedLat || -34.397,
+							lng: selectedLon || 150.644,
+						}}>
+						<Marker position={{ lat: selectedLat, lng: selectedLon }} />
+					</Map>
+				</APIProvider>
+
 				<div className="w-[50vw] max-800:w-full max-800:mx-auto">
 					<Title text="Football Stadiums" />
 					<div className="my-6">

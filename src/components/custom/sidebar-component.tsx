@@ -155,9 +155,7 @@ const Panel = ({
 							dropdown ? "h-[120px]" : "h-0"
 						} bg-gray-100 z-50 absolute right-0 top-[50px] rounded-sm`}>
 						<li
-							className={cn(
-								"w-full bg-gray-100 text-black flex items-center gap-2 hover:bg-gray-400 hover:text-white cursor-pointer",
-							)}>
+							>
 							<FormModal data={isLoading ? null : MeData.data} />
 						</li>
 
