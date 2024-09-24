@@ -21,8 +21,8 @@ import { Input } from "@/components/ui/input";
 import { LabelInputContainer } from "@/components/ui/label";
 function Webpage() {
 	const [location, setLocation] = useState({
-		latitude: 0,
-		longitude: 0,
+		latitude: 38.8470951,
+		longitude: 65.79399,
 	});
 
 	useEffect(() => {
@@ -165,6 +165,7 @@ function Webpage() {
 			</div>
 			<div className="overflow-hidden w-[90%] h-[50vh] my-[50px] mx-auto">
 				<MapComponent
+					km={km}
 					location={location}
 					data={nearStadium}
 				/>

@@ -1,4 +1,12 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import {
+	MapContainer,
+	TileLayer,
+	Marker,
+	Popup,
+	useMap,
+	LayerGroup,
+	Circle,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useEffect } from "react";
@@ -28,6 +36,7 @@ interface LocationType {
 	latitude: number;
 	longitude: number;
 }
+
 const ChangeView = ({ center }: { center: [number, number] }) => {
 	const map = useMap();
 	useEffect(() => {
@@ -38,32 +47,41 @@ const ChangeView = ({ center }: { center: [number, number] }) => {
 
 const MapComponent = ({
 	data,
+	km,
 	location,
 }: {
+	km: number;
 	data: StadType[] | [];
 	location: LocationType;
 }) => {
 	const center: [number, number] = [location?.latitude, location?.longitude];
-
+	const fillBlueOptions = { fillColor: "blue" };
 	return (
 		<MapContainer
 			center={center}
-			zoom={10}
-			style={{ height: "100%", width: "100%" }}
-			key={`${center[0]}-${center[1]}`}>
+			zoom={40}
+			style={{ height: "100%", width: "100%" }}>
 			<ChangeView center={center} />
-			<TileLayer
-				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-			/>
-			{data?.map((marker, index) => (
-				<Marker
-					key={index}
-					position={[marker.lat, marker.lang]}>
-					<Popup className="w-[200px]">{marker.stadiumName}</Popup>
-				</Marker>
-			))}
-			<Marker position={center}>
+
+			<LayerGroup>
+				<Circle
+					center={center}
+					pathOptions={fillBlueOptions}
+					radius={km*60}
+				/>
+				<TileLayer
+					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+				/>
+				{data?.map((marker, index) => (
+					<Marker
+						key={index}
+						position={[marker.lat, marker.lang]}>
+						<Popup>{marker.stadiumName}</Popup>
+					</Marker>
+				))}
+			</LayerGroup>
+			<Marker position={[location.latitude, location.longitude]}>
 				<Popup>You</Popup>
 			</Marker>
 		</MapContainer>
