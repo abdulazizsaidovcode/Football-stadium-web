@@ -18,3 +18,23 @@ export default defineConfig({
 		include: ["@vis/gl-react-google-maps"],
 	},
 });
+
+// import { defineConfig } from "vite";
+// import react from "@vitejs/plugin-react";
+// const path = require("path");
+
+// export default defineConfig({
+// 	plugins: [react()],
+// 	resolve: {
+// 		alias: {
+// 			"@": path.resolve(__dirname, "./src"),
+// 		},
+// 	},
+// 	server: {
+// 		port: 9999,
+// 		host: "0.0.0.0",
+// 	},
+// 	optimizeDeps: {
+// 		include: ["@vis/gl-react-google-maps"],
+// 	},
+// });
