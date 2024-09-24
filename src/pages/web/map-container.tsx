@@ -56,35 +56,51 @@ const MapComponent = ({
 }) => {
 	const center: [number, number] = [location?.latitude, location?.longitude];
 	const fillBlueOptions = { fillColor: "blue" };
-	return (
-		<MapContainer
-			center={center}
-			zoom={40}
-			style={{ height: "100%", width: "100%" }}>
-			<ChangeView center={center} />
 
-			<LayerGroup>
-				<Circle
-					center={center}
-					pathOptions={fillBlueOptions}
-					radius={km*60}
-				/>
-				<TileLayer
-					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-				/>
-				{data?.map((marker, index) => (
-					<Marker
-						key={index}
-						position={[marker.lat, marker.lang]}>
-						<Popup>{marker.stadiumName}</Popup>
-					</Marker>
-				))}
-			</LayerGroup>
-			<Marker position={[location.latitude, location.longitude]}>
-				<Popup>You</Popup>
-			</Marker>
-		</MapContainer>
+	const handleGetCoordinates = () => {
+		alert(`Latitude: ${center[0]}, Longitude: ${center[1]}`);
+	};
+
+	return (
+		<>
+			<MapContainer
+				center={center}
+				zoom={40}
+				style={{ height: "100%", width: "100%" }}>
+				<ChangeView center={center} />
+				<LayerGroup>
+					<Circle
+						center={center}
+						pathOptions={fillBlueOptions}
+						radius={km * 60}
+					/>
+					<TileLayer
+						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+					/>
+					{data?.map((marker, index) => (
+						<Marker
+							key={index}
+							position={[marker.lat, marker.lang]}>
+							<Popup>{marker.stadiumName}</Popup>
+						</Marker>
+					))}
+				</LayerGroup>
+				<Marker position={[location.latitude, location.longitude]}>
+					<Popup>You</Popup>
+				</Marker>
+			</MapContainer>
+			<button
+				onClick={handleGetCoordinates}
+				style={{
+					position: "absolute",
+					top: "10px",
+					left: "10px",
+					zIndex: 1000,
+				}}>
+				Get Coordinates
+			</button>
+		</>
 	);
 };
 
