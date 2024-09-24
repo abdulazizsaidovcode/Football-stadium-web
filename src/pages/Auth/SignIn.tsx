@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
-export function SignIn() {
+export default function SignIn() {
 	const navigate = useNavigate();
 
 	interface Inputs {

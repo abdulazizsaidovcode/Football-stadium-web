@@ -1,9 +1,9 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { SignIn } from "@/pages/auth/SignIn";
+import SignIn  from "@/pages/Auth/SignIn";
 import AdminPage from "@/pages/admin";
 import Webpage from "@/pages/web";
 import ProtectedRoute from "@/components/custom/private-route";
-import Navbar from "@/components/custom/navbar";
+import Navbar from "@/components/custom/Navbar";
 import NotFoundPage from "@/pages/not-found-page";
 
 function App() {
