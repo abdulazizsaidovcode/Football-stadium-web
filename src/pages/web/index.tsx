@@ -169,12 +169,6 @@ function Webpage() {
 					? `Sizga yaqin boshlang'ich ${km} km da ${nearStadium.length} ta stadion topildi`
 					: `Sizga yaqin boshlang'ich ${km} km da stadion topilmadi`}
 			</div>
-			<button
-				onClick={() => {
-					getLocation();
-				}}>
-				Get Location
-			</button>
 			<div className="overflow-hidden w-[90%] h-[50vh] my-[50px] mx-auto">
 				<MapComponent
 					km={km}
