@@ -6,10 +6,10 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { BsPersonCircle } from "react-icons/bs";
 import { BiMenuAltRight, BiMenuAltLeft } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
-import { cn } from "../../lib/utils";
-import LogOutModal from "./logout-modal";
-import FormModal from "./form-modal";
-import { useGetData } from "../../hooks/useGetData";
+import { cn } from "@/lib/utils";
+import LogOutModal from "@/components/custom/logout-modal";
+import FormModal from "@/components/custom/form-modal";
+import { useGetData } from "@/hooks/useGetData";
 
 export function SidebarComponent({ children }: { children: React.ReactNode }) {
 	const iconStyle =
@@ -154,8 +154,7 @@ const Panel = ({
 						className={`w-[220px] overflow-hidden duration-500 text-xl text-left transition-all ${
 							dropdown ? "h-[120px]" : "h-0"
 						} bg-gray-100 z-50 absolute right-0 top-[50px] rounded-sm`}>
-						<li
-							>
+						<li>
 							<FormModal data={isLoading ? null : MeData.data} />
 						</li>
 

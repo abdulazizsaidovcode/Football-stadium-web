@@ -1,7 +1,7 @@
-import { KeysType, MasterType } from "../../constants/types";
-import { AlertModal } from "../custom/alert-modal";
-import { useDelete } from "../../hooks/useDelete";
-import MasterInfoModal from "./master-info-modal";
+import { KeysType, MasterType } from "@/constants/types";
+import { AlertModal } from "@/components/custom/alert-modal";
+import { useDelete } from "@/hooks/useDelete";
+import MasterInfoModal from "@/components/custom/master-info-modal";
 
 const Table = ({
 	data,

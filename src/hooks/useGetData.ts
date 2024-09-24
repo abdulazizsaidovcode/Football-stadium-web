@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import instance from "../server/config";
+import instance from "@/server/config";
 
 const getData = async (endpoint: string, page?: number) => {
 	const response = await instance.get(

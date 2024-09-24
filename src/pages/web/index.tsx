@@ -1,18 +1,18 @@
-import img from "../../assets/player.svg";
-import StatCard from "../../components/custom/statistics-card";
+import img from "@/assets/player.svg";
+import StatCard from "@/components/custom/statistics-card";
 import { MdStadium } from "react-icons/md";
 
 import { FaUserTie } from "react-icons/fa";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { IoPerson } from "react-icons/io5";
 
-import { TextGenerateEffect } from "../../components/ui/text-generate-effect";
-import stadium from "../../assets/stadium.png";
-import appstore from "../../assets/appstore.png";
-import googleplay from "../../assets/googleplay.png";
-import Title from "../../components/custom/title";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import stadium from "@/assets/stadium.png";
+import appstore from "@/assets/appstore.png";
+import googleplay from "@/assets/googleplay.png";
+import Title from "@/components/custom/title";
 import { AdvancedMarker, APIProvider, Map } from "@vis.gl/react-google-maps";
-import { useGetData } from "../../hooks/useGetData";
+import { useGetData } from "@/hooks/useGetData";
 import { useEffect, useState } from "react";
 interface Location {
 	latitude: number | null;

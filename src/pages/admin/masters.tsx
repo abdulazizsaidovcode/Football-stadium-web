@@ -1,6 +1,6 @@
-import { Tabs } from "../../components/ui/tabs";
-import { ConfirmedMasters } from "./confirmed_masters";
-import NotMasters from "./not_masters";
+import { Tabs } from "@/components/ui/tabs";
+import { ConfirmedMasters } from "@/pages/admin/confirmed_masters";
+import NotMasters from "@/pages/admin/not_masters";
 
 const Masters = () => {
 	const tabs = [

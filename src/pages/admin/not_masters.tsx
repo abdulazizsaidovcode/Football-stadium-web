@@ -1,9 +1,9 @@
-import Table from "../../components/custom/table";
-import Pagination from "../../components/custom/pagination";
-import { MasterKeys } from "../../constants";
-import { usePagination } from "../../hooks/usePaginatedData";
-import { useStatus } from "../../hooks/useMastersApproved";
-import { useGetData } from "../../hooks/useGetData";
+import Table from "@/components/custom/table";
+import Pagination from "@/components/custom/pagination";
+import { MasterKeys } from "@/constants";
+import { usePagination } from "@/hooks/usePaginatedData";
+import { useStatus } from "@/hooks/useMastersApproved";
+import { useGetData } from "@/hooks/useGetData";
 
 const NotMasters = () => {
 	const { page, nextPage, prevPage } = usePagination("notMasterPage");

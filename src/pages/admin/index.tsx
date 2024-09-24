@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import { Dashboard } from "./dashboard";
-import { SidebarComponent } from "../../components/custom/sidebar-component";
-import Clients from "./clients";
-import Masters from "./masters";
-import NotFoundPage from "../not-found-page";
+import { Dashboard } from "@/pages/admin/dashboard";
+import { SidebarComponent } from "@/components/custom/sidebar-component";
+import Clients from "@/pages/admin/clients";
+import Masters from "@/pages/admin/masters";
+import NotFoundPage from "@/pages/not-found-page";
 function AdminPage() {
 	return (
 		<div className="w-full">

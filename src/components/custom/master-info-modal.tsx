@@ -10,11 +10,11 @@ import {
 	ModalFooter,
 	ModalProvider,
 	ModalTrigger,
-} from "../ui/animated-modal";
+} from "@/components/ui/animated-modal";
 import { useQuery } from "@tanstack/react-query";
-import instance from "../../server/config";
-import { BackgroundGradient } from "../ui/background-gradient";
-import { StadiumFeaturesType } from "../../constants/types";
+import instance from "@/server/config";
+import { BackgroundGradient } from "@/components/ui/background-gradient";
+import { StadiumFeaturesType } from "@/constants/types";
 
 const MasterInfoModal = ({ id }: { id: string }) => {
 	const {

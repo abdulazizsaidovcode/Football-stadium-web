@@ -9,15 +9,15 @@ import {
 	ModalBody,
 	ModalContent,
 	ModalTrigger,
-} from "../ui/animated-modal";
-import { Input } from "../ui/input";
-import { LabelInputContainer } from "../ui/label";
+} from "@/components/ui/animated-modal";
+import { Input } from "@/components/ui/input";
+import { LabelInputContainer } from "@/components/ui/label";
 import { useEffect, useState, useCallback } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import instance from "../../server/config";
+import instance from "@/server/config";
 import Cookies from "js-cookie";
-import { MeType } from "../../constants/types";
+import { MeType } from "@/constants/types";
 
 const FormModal = ({ data }: { data: null | MeType | undefined }) => {
 	const [visible, setVisible] = useState(true);

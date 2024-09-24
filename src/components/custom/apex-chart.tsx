@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
-import { Input } from "../ui/input";
-import { useYearlyStatisticData } from "../../hooks/useYearlyStatisticData";
-import { chartConfig, useChartData } from "../../hooks/useChartData";
+import { Input } from "@/components/ui/input";
+import { useYearlyStatisticData } from "@/hooks/useYearlyStatisticData";
+import { chartConfig, useChartData } from "@/hooks/useChartData";
 
 const ApexChart: React.FC = () => {
 	const [year, setYear] = useState(2024);

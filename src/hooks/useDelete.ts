@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import instance from "../server/config";
-import { MasterType } from "../constants/types";
+import instance from "@/server/config";
+import { MasterType } from "@/constants/types";
 import { toast } from "react-toastify";
 
 const deleteFunction = async (id: string) => {

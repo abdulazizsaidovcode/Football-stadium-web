@@ -1,8 +1,8 @@
-import Table from "../../components/custom/table";
-import Pagination from "../../components/custom/pagination";
-import { MasterKeys } from "../../constants";
-import { usePagination } from "../../hooks/usePaginatedData";
-import { useGetData } from "../../hooks/useGetData";
+import Table from "@/components/custom/table";
+import Pagination from "@/components/custom/pagination";
+import { MasterKeys } from "@/constants";
+import { usePagination } from "@/hooks/usePaginatedData";
+import { useGetData } from "@/hooks/useGetData";
 
 export const ConfirmedMasters = () => {
 	const { page, nextPage, prevPage } = usePagination("confirmedPage");

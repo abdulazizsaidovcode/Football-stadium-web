@@ -7,7 +7,7 @@ import {
 	ModalFooter,
 	ModalProvider,
 	ModalTrigger,
-} from "../ui/animated-modal";
+} from "@/components/ui/animated-modal";
 import { FiLogOut } from "react-icons/fi";
 
 const LogOutModal = ({ basicFunction }: { basicFunction: () => void }) => {
