@@ -14,9 +14,6 @@ export default defineConfig({
 		port: 9999,
 		host: "0.0.0.0",
 	},
-	optimizeDeps: {
-		include: ["@vis/gl-react-google-maps"],
-	},
 });
 
 // import { defineConfig } from "vite";

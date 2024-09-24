@@ -4,52 +4,68 @@ import { MdStadium } from "react-icons/md";
 
 import { FaUserTie } from "react-icons/fa";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
-import { IoPerson } from "react-icons/io5";
 
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import stadium from "@/assets/stadium.png";
 import appstore from "@/assets/appstore.png";
 import googleplay from "@/assets/googleplay.png";
-import Title from "@/components/custom/Title";
-import { AdvancedMarker, APIProvider, Map } from "@vis.gl/react-google-maps";
+import Title from "@/components/custom/title";
 import { useGetData } from "@/hooks/useGetData";
 import { useEffect, useState } from "react";
-interface Location {
-	latitude: number | null;
-	longitude: number | null;
-}
-
+import "leaflet/dist/leaflet.css";
+import MapComponent from "./map-container";
+import { useQuery } from "@tanstack/react-query";
+import instance from "@/server/config";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { LabelInputContainer } from "@/components/ui/label";
 function Webpage() {
-	const [location, setLocation] = useState<Location>({
-		latitude: null,
-		longitude: null,
+	const [location, setLocation] = useState({
+		latitude: 0,
+		longitude: 0,
 	});
 
-	const { data, isLoading } = useGetData(
+	useEffect(() => {
+		navigator.geolocation.getCurrentPosition((position) => {
+			setLocation({
+				latitude: position.coords.latitude,
+				longitude: position.coords.longitude,
+			});
+			console.log({
+				latitude: position.coords.latitude,
+				longitude: position.coords.longitude,
+			});
+		});
+	}, []);
+
+	const { data } = useGetData(
 		`statistic/web/for/stadium-count?lat=${location?.latitude || 0}&lang=${
 			location?.longitude || 0
 		}`,
 	);
-	console.log(isLoading ? "Loading" : data.data);
 
-	const { data: nearStadium, isLoading: isLoadingStadium } = useGetData(
-		`statistic/web/for/radiusBy-stadiumCount?lat=${location?.latitude}&lang=${location?.longitude}`,
-	);
+	const [km, setKm] = useState(2500);
 
-	useEffect(() => {
-		const getUserLocation = () => {
-			if ("geolocation" in navigator) {
-				navigator.geolocation.getCurrentPosition((position) => {
-					setLocation({
-						latitude: position.coords.latitude,
-						longitude: position.coords.longitude,
-					});
-				});
-			}
-		};
+	const { data: nearStadium, isLoading } = useQuery({
+		queryKey: ["nearStadium", km],
+		queryFn: async () => {
+			const response = await instance.get(
+				`statistic/web/for/radiusBy-stadiumCount?lat=${location.latitude}&lang=${location.longitude}&nextToMe=${km}`,
+			);
+			return response.data.data;
+		},
+	});
 
-		getUserLocation();
-	}, []);
+	console.log(isLoading ? "Loading" : nearStadium);
+	interface Inputs {
+		km: string;
+	}
+	const { register, handleSubmit } = useForm<Inputs>();
+
+	const onSubmit: SubmitHandler<Inputs> = (data) => {
+		console.log(data.km);
+		setKm(Number(data.km));
+	};
 
 	const words = `	Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos eaque assumenda repellat voluptas laborum qui quas, quos perspiciatis facilis eius sapiente accusantium necessitatibus veniam amet possimus id dolor harum aut! Incidunt maiores necessitatibus tenetur aliquid distinctio at iste ut? Facilis quibusdam cumque aliquam, at dolor obcaecati est qui consectetur nihil!`;
 
@@ -121,66 +137,38 @@ function Webpage() {
 					))}
 				</div>
 			</div>
-			<APIProvider apiKey={"AIzaSyA7hQst-XJ1zOl63vgDEfOI05ec3boIPms"}>
-				{location.latitude && location.longitude && (
-					<Map
-						style={{ height: "80vh", width: "100%", margin: "50px auto" }}
-						mapId={"AIzaSyA7hQst-XJ1zOl63vgDEfOI05ec3boI"}
-						zoom={15}
-						zoomControl={true}
-						center={{
-							lat: location.latitude,
-							lng: location.longitude,
-						}}>
-						{isLoadingStadium ? (
-							<div>Loading nearby stadiums...</div>
-						) : nearStadium?.data?.length === 0 ? (
-							<div className="text-red-500 text-2xl my-4 w-full text-center">
-								Sizga yaqin bo'lgan stadionlar topilmadi!
-							</div>
-						) : (
-							<>
-								{nearStadium.data.map(
-									(
-										stad: { stadiumName: string; lat: number; lang: number },
-										i: number,
-									) => (
-										<AdvancedMarker
-											key={i}
-											position={{
-												lat: stad.lat,
-												lng: stad.lang,
-											}}>
-											<MdStadium
-												fontSize={30}
-												color="green"
-											/>
-											<h1 className="text-black font-bold text-xl">
-												{stad.stadiumName}
-											</h1>
-										</AdvancedMarker>
-									),
-								)}
-								<AdvancedMarker
-									position={{
-										lat: location.latitude,
-										lng: location.longitude,
-									}}>
-									<IoPerson
-										color="green"
-										fontSize={50}
-									/>
-									<h1 className="text-xl">You</h1>
-								</AdvancedMarker>
-								<div className="text-black font-bold text-2xl w-full text-center my-2">
-									Sizga yaqin bo'lgan stadionlar soni {nearStadium.data.length}
-								</div>
-							</>
-						)}
-					</Map>
-				)}
-			</APIProvider>
-
+			<div className="w-[90%] flex justify-end items-center gap-4">
+				<div className="text-2xl font-bold">Write distance</div>
+				<form
+					onSubmit={handleSubmit(onSubmit)}
+					className="flex items-center gap-4">
+					<LabelInputContainer className="w-[45%]">
+						<Input
+						className="text-xl"
+							type="text"
+							{...register("km")}
+						/>
+					</LabelInputContainer>
+					<button
+						className="text-md font-bold px-2 py-1 rounded-md w-28 border border-gray-400 bg-gray-400 hover:bg-inherit transition-all "
+						type="submit">
+						Submit
+					</button>
+				</form>
+			</div>
+			<div className="w-[90%] mx-auto text-2xl font-bold text-center my-4" >
+				{isLoading
+					? "Loading"
+					: nearStadium.length > 0
+					? `Sizga yaqin boshlang'ich ${km} km da ${nearStadium.length} ta stadion topildi`
+					: `Sizga yaqin boshlang'ich ${km} km da stadion topilmadi`}
+			</div>
+			<div className="overflow-hidden w-[90%] h-[50vh] my-[50px] mx-auto">
+				<MapComponent
+					location={location}
+					data={nearStadium}
+				/>
+			</div>
 			<div
 				id="about"
 				className="my-[50px] max-800:my-[2vw] container mx-auto">
