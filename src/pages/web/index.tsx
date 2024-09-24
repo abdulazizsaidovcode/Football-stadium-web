@@ -13,7 +13,7 @@ import Title from "@/components/custom/title";
 import { useGetData } from "@/hooks/useGetData";
 import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
-import MapComponent from "./map-container";
+import MapComponent from "@/pages/web/map-container";
 import { useQuery } from "@tanstack/react-query";
 import instance from "@/server/config";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -144,7 +144,7 @@ function Webpage() {
 					className="flex items-center gap-4">
 					<LabelInputContainer className="w-[45%]">
 						<Input
-						className="text-xl"
+							className="text-xl"
 							type="text"
 							{...register("km")}
 						/>
@@ -156,7 +156,7 @@ function Webpage() {
 					</button>
 				</form>
 			</div>
-			<div className="w-[90%] mx-auto text-2xl font-bold text-center my-4" >
+			<div className="w-[90%] mx-auto text-2xl font-bold text-center my-4">
 				{isLoading
 					? "Loading"
 					: nearStadium.length > 0
