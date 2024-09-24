@@ -152,7 +152,7 @@ function Webpage() {
 						/>
 					</LabelInputContainer>
 					<button
-						className="text-md font-bold px-2 py-1 rounded-md w-28 border border-gray-400 bg-gray-400 hover:bg-inherit transition-all "
+						className="text-md font-bold px-2 py-1 rounded-md w-28 border border-gray-400 bg-black text-white hover:text-black hover:bg-inherit transition-all "
 						type="submit">
 						Submit
 					</button>
