@@ -127,6 +127,7 @@ function Webpage() {
 						style={{ height: "80vh", width: "100%", margin: "50px auto" }}
 						mapId={"AIzaSyA7hQst-XJ1zOl63vgDEfOI05ec3boI"}
 						zoom={15}
+						zoomControl={true}
 						center={{
 							lat: location.latitude,
 							lng: location.longitude,
