@@ -137,12 +137,14 @@ function Webpage() {
 					))}
 				</div>
 			</div>
-			<div className="w-[90%] flex justify-end items-center gap-4">
-				<div className="text-2xl font-bold">Write distance</div>
+			<div className="w-[90%] flex justify-end items-center gap-4 mx-auto max-800:block">
+				<div className="text-2xl font-bold md:min-w-fit  max-800:text-center">
+					Write distance
+				</div>
 				<form
 					onSubmit={handleSubmit(onSubmit)}
-					className="flex items-center gap-4">
-					<LabelInputContainer className="w-[45%]">
+					className="flex items-center gap-4 max-800:my-6">
+					<LabelInputContainer>
 						<Input
 							className="text-xl"
 							type="text"
