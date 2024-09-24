@@ -29,7 +29,7 @@ const Navbar = () => {
 	};
 
 	return (
-		<div className="shadow-lg sticky top-0 z-50 border">
+		<div className="shadow-lg border">
 			<ul className="container mx-auto justify-end bg-gray-100 p-4 py-8 hidden md:flex">
 				{navItems.map((item) => (
 					<li
