@@ -15,8 +15,7 @@ const NotMasters = () => {
 		ApproveOrRejectFunction({ id, value: status });
 	};
 
-	const { data, isLoading } = useGetData("statistic/for/admin/count-all");
-	console.log(isLoading ? "loading" : data.data);
+	const { data } = useGetData("statistic/for/admin/count-all");
 
 	return (
 		<>
