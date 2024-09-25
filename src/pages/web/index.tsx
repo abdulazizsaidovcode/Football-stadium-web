@@ -19,28 +19,50 @@ import instance from "@/server/config";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { LabelInputContainer } from "@/components/ui/label";
+// import * as Location from "expo-location"; // Import Location from expo-location
 function Webpage() {
 	const [location, setLocation] = useState({
 		latitude: 38.8470951,
 		longitude: 65.79399,
 	});
-
-	const getLocation = () => {
-		navigator.geolocation.getCurrentPosition((position) => {
-			setLocation({
-				latitude: position.coords.latitude,
-				longitude: position.coords.longitude,
-			});
-			console.log({
-				latitude: position.coords.latitude,
-				longitude: position.coords.longitude,
-			});
-		});
-	};
-
+	const [permissionStatus, setPermissionStatus] = useState("unknown");
+	console.log(permissionStatus);
 	useEffect(() => {
-		getLocation();
-	}, []);
+		navigator.permissions
+			.query({ name: "geolocation" })
+			.then((result) => {
+				setPermissionStatus(result.state);
+				result.onchange = () => {
+					setPermissionStatus(result.state);
+					console.log(permissionStatus);
+				};
+			})
+			.catch((err) => {
+				console.error("Error checking permission:", err);
+			});
+	}, [permissionStatus]);
+
+	const requestLocation = () => {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					setLocation({
+						latitude: position.coords.latitude,
+						longitude: position.coords.longitude,
+					});
+				},
+
+				() => {
+					alert(
+						"Brauser cannot access your location get from an unsecure website",
+					);
+				},
+			);
+		} else {
+			alert("Geolocation is not supported by this browser.");
+		}
+		console.log(location);
+	};
 
 	const { data } = useGetData(
 		`statistic/web/for/stadium-count?lat=${location?.latitude || 0}&lang=${
@@ -48,7 +70,7 @@ function Webpage() {
 		}`,
 	);
 
-	const [km, setKm] = useState(2500);
+	const [km, setKm] = useState(10);
 
 	const { data: nearStadium, isLoading } = useQuery({
 		queryKey: ["nearStadium", km],
@@ -60,14 +82,12 @@ function Webpage() {
 		},
 	});
 
-	console.log(isLoading ? "Loading" : nearStadium);
 	interface Inputs {
 		km: string;
 	}
 	const { register, handleSubmit } = useForm<Inputs>();
 
 	const onSubmit: SubmitHandler<Inputs> = (data) => {
-		console.log(data.km);
 		setKm(Number(data.km));
 	};
 
@@ -141,7 +161,7 @@ function Webpage() {
 					))}
 				</div>
 			</div>
-			<div className="w-[90%] flex justify-end items-center gap-4 mx-auto max-800:block">
+			<div className="w-[90%] flex justify-center items-center gap-4 mx-auto max-800:block">
 				<div className="text-2xl font-bold md:min-w-fit  max-800:text-center">
 					Write distance
 				</div>
@@ -169,7 +189,14 @@ function Webpage() {
 					? `Sizga yaqin boshlang'ich ${km} km da ${nearStadium.length} ta stadion topildi`
 					: `Sizga yaqin boshlang'ich ${km} km da stadion topilmadi`}
 			</div>
-			<div className="overflow-hidden w-[90%] h-[50vh] my-[50px] mx-auto">
+			<div className="w-[95%] flex justify-end">
+				<button
+					onClick={requestLocation}
+					className="text-md font-bold px-2 py-1 rounded-md border border-gray-400 bg-black text-white hover:text-black hover:bg-inherit transition-all ">
+					Get Coordinates
+				</button>
+			</div>
+			<div className="overflow-hidden w-[90%] relative h-[50vh] my-[20px] mx-auto">
 				<MapComponent
 					km={km}
 					location={location}

@@ -1,7 +1,4 @@
 import { IconInfoCircle } from "@tabler/icons-react";
-import { FaCheck } from "react-icons/fa";
-import { MdDoNotDisturb } from "react-icons/md";
-
 import {
 	CloseIcon,
 	Modal,
@@ -13,8 +10,8 @@ import {
 } from "@/components/ui/animated-modal";
 import { useQuery } from "@tanstack/react-query";
 import instance from "@/server/config";
-import { BackgroundGradient } from "@/components/ui/background-gradient";
 import { StadiumFeaturesType } from "@/constants/types";
+import StadiumCard from "./stadium-card";
 
 const MasterInfoModal = ({ id }: { id: string }) => {
 	const {
@@ -51,91 +48,7 @@ const MasterInfoModal = ({ id }: { id: string }) => {
 							) : stadiumFeatures.data ? (
 								<div className="flex justify-between max-w-[900px] gap-4">
 									{stadiumFeatures.data.map((item: StadiumFeaturesType) => (
-										<BackgroundGradient
-											key={item.id}
-											className="rounded-sm min-h-[300px] max-h-[400px] h-[400px] max-w-md sm:p-10 bg-gray-200 ">
-											<h3 className="text-black font-bold text-2xl">
-												{item.name}
-											</h3>
-											<p className="text-sm text-gray-300  my-4">
-												{item.description !== "string" &&
-												item.description !== null ? (
-													item.description
-												) : (
-													<span className="text-red-800 font-bold">
-														"No any description"
-													</span>
-												)}
-											</p>
-											<ul className="flex justify-between flex-wrap gap-4">
-												<li>
-													<b>Narx</b>: {item.price} so'm
-												</li>
-												<li>
-													<b>Boshlang'ich tolov</b>: {item.initialPay} so'm
-												</li>
-												<li>
-													<b>Uzunligi</b>: {item.length} m
-												</li>
-												<li>
-													<b>Kengligi</b>: {item.widhth} m
-												</li>
-												<li>
-													<b>Ochilish vaqti</b>: {item.startHour}
-												</li>
-												<li>
-													<b>Yopilish vaqti</b>: {item.endHour}
-												</li>
-												<li className="flex items-center gap-2 ">
-													<b>Dush :</b>
-													{item.shower ? (
-														<FaCheck
-															fontSize={25}
-															color="green"
-															fontWeight={"bold"}
-														/>
-													) : (
-														<MdDoNotDisturb
-															fontSize={25}
-															color="red"
-															fontWeight={"bold"}
-														/>
-													)}
-												</li>
-												<li className="flex items-center gap-2 ">
-													<b>Shopping: </b>
-													{item.shopping ? (
-														<FaCheck
-															fontSize={25}
-															color="green"
-															fontWeight={"bold"}
-														/>
-													) : (
-														<MdDoNotDisturb
-															fontSize={25}
-															color="red"
-															fontWeight={"bold"}
-														/>
-													)}
-												</li>
-												<li className="flex items-center gap-2 ">
-													<b>WC:</b>
-													{item.toilet ? (
-														<FaCheck
-															fontSize={25}
-															color="green"
-															fontWeight={"bold"}
-														/>
-													) : (
-														<MdDoNotDisturb
-															fontSize={25}
-															color="red"
-															fontWeight={"bold"}
-														/>
-													)}
-												</li>
-											</ul>
-										</BackgroundGradient>
+										<StadiumCard stadium={item} />
 									))}
 								</div>
 							) : stadiumFeatures.error ? (

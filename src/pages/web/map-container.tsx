@@ -9,9 +9,11 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import instance from "@/server/config";
+import StadiumCard from "@/components/custom/stadium-card";
 
-// Custom icon configuration
 const DefaultIcon = L.icon({
 	iconRetinaUrl:
 		"https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
@@ -40,7 +42,9 @@ interface LocationType {
 const ChangeView = ({ center }: { center: [number, number] }) => {
 	const map = useMap();
 	useEffect(() => {
-		map.setView(center);
+		if (center) {
+			map.setView(center);
+		}
 	}, [center, map]);
 	return null;
 };
@@ -54,52 +58,77 @@ const MapComponent = ({
 	data: StadType[] | [];
 	location: LocationType;
 }) => {
-	const center: [number, number] = [location?.latitude, location?.longitude];
+	const center: [number, number] =
+		location?.latitude && location?.longitude
+			? [location.latitude, location.longitude]
+			: [51.505, -0.09];
 	const fillBlueOptions = { fillColor: "blue" };
 
-	const handleGetCoordinates = () => {
-		alert(`Latitude: ${center[0]}, Longitude: ${center[1]}`);
-	};
+	// stadium/one/98bd6ca9-ec5e-465d-8a92-4894f421beb7
+
+	const [id, setId] = useState("98bd6ca9-ec5e-465d-8a92-4894f421beb7");
+
+	const { data: stadiumOne, isLoading: stadiumOneLoading } = useQuery({
+		queryKey: ["stadim/one", id],
+		queryFn: async () => {
+			const response = await instance.get(`stadium/one/${id}`);
+			return response.data.data;
+		},
+	});
+
+	console.log(stadiumOneLoading ? "Loading,,," : stadiumOne);
 
 	return (
 		<>
 			<MapContainer
+				className="z-50 absolute"
 				center={center}
-				zoom={40}
+				zoom={13} // Adjusted zoom level
 				style={{ height: "100%", width: "100%" }}>
 				<ChangeView center={center} />
 				<LayerGroup>
 					<Circle
 						center={center}
 						pathOptions={fillBlueOptions}
-						radius={km * 60}
+						radius={km * 1000}
 					/>
 					<TileLayer
 						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 					/>
-					{data?.map((marker, index) => (
-						<Marker
-							key={index}
-							position={[marker.lat, marker.lang]}>
-							<Popup>{marker.stadiumName}</Popup>
-						</Marker>
+					{data?.map((marker) => (
+						<div key={marker.stadiumId}>
+							<Marker
+								eventHandlers={{
+									click: () => {
+										setId(marker.stadiumId);
+									},
+								}}
+								position={[marker.lat, marker.lang]}>
+								<Popup>
+									{stadiumOneLoading ? (
+										"Loading"
+									) : (
+										<StadiumCard
+											className="h-[200px] w-[300px]"
+											stadium={stadiumOne}
+										/>
+									)}
+								</Popup>
+							</Marker>
+						</div>
 					))}
 				</LayerGroup>
-				<Marker position={[location.latitude, location.longitude]}>
-					<Popup>You</Popup>
+				<Marker
+					onClick={() => {
+						console.log("clicked");
+					}}
+					position={center}>
+					<Popup>
+						<div className="text-red-600 text-2xl font-bold">You</div>
+					</Popup>
 				</Marker>
 			</MapContainer>
-			<button
-				onClick={handleGetCoordinates}
-				style={{
-					position: "absolute",
-					top: "10px",
-					left: "10px",
-					zIndex: 1000,
-				}}>
-				Get Coordinates
-			</button>
 		</>
 	);
 };
