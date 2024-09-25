@@ -1,10 +1,8 @@
 import img from "@/assets/player.svg";
 import StatCard from "@/components/custom/statistics-card";
 import { MdStadium } from "react-icons/md";
-
 import { FaUserTie } from "react-icons/fa";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
-
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import stadium from "@/assets/stadium.png";
 import appstore from "@/assets/appstore.png";
@@ -19,7 +17,6 @@ import instance from "@/server/config";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { LabelInputContainer } from "@/components/ui/label";
-// import * as Location from "expo-location"; // Import Location from expo-location
 function Webpage() {
 	const [location, setLocation] = useState({
 		latitude: 38.8470951,
@@ -131,7 +128,7 @@ function Webpage() {
 					<div className="my-6">
 						<TextGenerateEffect words={words} />
 					</div>
-					<button className="hidden md:block px-[8vw] py-[1vw] hover:scale-110 bg-black text-white text-xl rounded-md font-semibold hover:bg-green-400 transition hover:shadow-lg">
+					<button className="hidden md:block px-[8vw] py-[1vw] md:hover:scale-110 bg-black text-white text-xl rounded-md font-semibold md:hover:bg-green-400 transition md:hover:shadow-lg">
 						Contact Us
 					</button>
 				</div>
@@ -176,7 +173,7 @@ function Webpage() {
 						/>
 					</LabelInputContainer>
 					<button
-						className="text-md font-bold px-2 py-1 rounded-md w-28 border border-gray-400 bg-black text-white hover:text-black hover:bg-inherit transition-all "
+						className="text-md font-bold px-2 py-1 rounded-md w-28 border border-gray-400 bg-black text-white md:hover:text-black md:hover:bg-inherit transition-all "
 						type="submit">
 						Submit
 					</button>
@@ -192,7 +189,7 @@ function Webpage() {
 			<div className="w-[95%] flex justify-end">
 				<button
 					onClick={requestLocation}
-					className="text-md font-bold px-2 py-1 rounded-md border border-gray-400 bg-black text-white hover:text-black hover:bg-inherit transition-all ">
+					className="text-md font-bold px-2 py-1 rounded-md border border-gray-400 bg-black text-white md:hover:text-black md:hover:bg-inherit transition-all ">
 					Get Coordinates
 				</button>
 			</div>
@@ -215,7 +212,7 @@ function Webpage() {
 						className="w-[44%] max-800:w-full max-800:text-center"
 						words={`Xush kelibsiz! Biz, IT CITY jamoasi, futbol stadionlarini qulay va samarali tarzda band qilish bo'yicha mutaxassislarimiz. Bizning maqsadimiz — sizga stadion band qilish jarayonini soddalashtirish va maksimal darajada qulaylik yaratishdir.`}
 					/>
-					<div className="w-[30%] max-800:w-[80%] max-800:my-4 overflow-hidden hover:scale-105 transition rounded-xl">
+					<div className="w-[30%] max-800:w-[80%] max-800:my-4 overflow-hidden md:hover:scale-105 transition rounded-xl">
 						<img
 							className="w-full"
 							src={stadium}
@@ -235,7 +232,7 @@ function Webpage() {
 					<div className="flex justify-between gap-2 w-[30%] max-800:w-[90%] max-800:mx-auto">
 						<a
 							href="#"
-							className="transition hover:scale-105">
+							className="transition md:hover:scale-105">
 							<img
 								src={googleplay}
 								className="w-full"
@@ -244,7 +241,7 @@ function Webpage() {
 						</a>
 						<a
 							href="#"
-							className="transition hover:scale-105">
+							className="transition md:hover:scale-105">
 							<img
 								src={appstore}
 								className="w-full"

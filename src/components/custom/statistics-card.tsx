@@ -1,7 +1,7 @@
 import { StatType } from "@/constants/types";
 const StatCard = ({ icon, number, title }: StatType) => {
 	return (
-		<div className="w-[22%] max-800:w-[45%] max-520:w-[90%] max-800:mb-[50px] max-800:mx-auto hover:scale-110 transition text-center cursor-pointer p-8 border rounded-lg shadow-md flex flex-col items-center">
+		<div className="w-[22%] max-800:w-[45%] max-520:w-[90%] max-800:mb-[50px] max-800:mx-auto md:hover:scale-110 transition text-center cursor-pointer p-8 border rounded-lg shadow-md flex flex-col items-center">
 			<div className="text-[4vw] max-800:text-[6vw] max-520:text-[12vw] mb-2 text-green-400">
 				{icon}
 			</div>
