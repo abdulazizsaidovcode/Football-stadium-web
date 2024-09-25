@@ -7,7 +7,7 @@ export interface StadiumFeaturesType {
 	price: number;
 	initialPay: number;
 	length: number;
-	widhth: number;
+	width: number;
 	description: string;
 	startHour: number;
 	startMinute: number;

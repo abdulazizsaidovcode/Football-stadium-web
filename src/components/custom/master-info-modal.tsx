@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import instance from "@/server/config";
 import { StadiumFeaturesType } from "@/constants/types";
 import StadiumCard from "./stadium-card";
+import { BackgroundGradient } from "../ui/background-gradient";
 
 const MasterInfoModal = ({ id }: { id: string }) => {
 	const {
@@ -48,7 +49,11 @@ const MasterInfoModal = ({ id }: { id: string }) => {
 							) : stadiumFeatures.data ? (
 								<div className="flex justify-between max-w-[900px] gap-4">
 									{stadiumFeatures.data.map((item: StadiumFeaturesType) => (
-										<StadiumCard stadium={item} />
+										<BackgroundGradient
+											key={item.id}
+											className={`rounded-sm min-h-[300px] max-h-[400px] h-[400px] max-w-md  bg-gray-200`}>
+											<StadiumCard stadium={item} />
+										</BackgroundGradient>
 									))}
 								</div>
 							) : stadiumFeatures.error ? (
