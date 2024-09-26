@@ -110,7 +110,7 @@ const MapComponent = ({
 										"Loading"
 									) : (
 										<StadiumCard
-											className="h-[200px] md:w-full w-[250px] p-0 overflow-y-scroll"
+											className="h-[200px] md:w-full w-[250px] p-0 overflow-y-scroll no-visible-scrollbar"
 											stadium={stadiumOne}
 										/>
 									)}
