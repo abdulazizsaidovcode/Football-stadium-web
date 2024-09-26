@@ -147,7 +147,7 @@ function Webpage() {
 					text="Statistics"
 					className="mb-4 text-center"
 				/>
-				<div className="w-[95%]  flex flex-wrap max-520:block container justify-center gap-16 mx-auto mt-[20px]">
+				<div className="w-[95%]  flex flex-wrap max-520:block container justify-center md:gap-16 mx-auto mt-[20px]">
 					{stats.map((stat, i) => (
 						<StatCard
 							key={i}
