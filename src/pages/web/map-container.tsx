@@ -64,8 +64,6 @@ const MapComponent = ({
 			: [51.505, -0.09];
 	const fillBlueOptions = { fillColor: "blue" };
 
-	// stadium/one/98bd6ca9-ec5e-465d-8a92-4894f421beb7
-
 	const [id, setId] = useState("98bd6ca9-ec5e-465d-8a92-4894f421beb7");
 
 	const { data: stadiumOne, isLoading: stadiumOneLoading } = useQuery({

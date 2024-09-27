@@ -19,25 +19,9 @@ import { Input } from "@/components/ui/input";
 import { LabelInputContainer } from "@/components/ui/label";
 function Webpage() {
 	const [location, setLocation] = useState({
-		latitude: 38.8470951,
-		longitude: 65.79399,
+		latitude: 0,
+		longitude: 0,
 	});
-	const [permissionStatus, setPermissionStatus] = useState("unknown");
-	console.log(permissionStatus);
-	useEffect(() => {
-		navigator.permissions
-			.query({ name: "geolocation" })
-			.then((result) => {
-				setPermissionStatus(result.state);
-				result.onchange = () => {
-					setPermissionStatus(result.state);
-					console.log(permissionStatus);
-				};
-			})
-			.catch((err) => {
-				console.error("Error checking permission:", err);
-			});
-	}, [permissionStatus]);
 
 	const requestLocation = () => {
 		if (navigator.geolocation) {
@@ -60,6 +44,9 @@ function Webpage() {
 		}
 		console.log(location);
 	};
+	useEffect(() => {
+		requestLocation();
+	}, []);
 
 	const { data } = useGetData(
 		`statistic/web/for/stadium-count?lat=${location?.latitude || 0}&lang=${
