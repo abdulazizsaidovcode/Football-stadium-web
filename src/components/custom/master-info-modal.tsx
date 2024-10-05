@@ -41,18 +41,21 @@ const MasterInfoModal = ({ id }: { id: string }) => {
 					</ModalTrigger>
 
 					<ModalBody className="max-w-fit">
-						<ModalContent>
+						<ModalContent className="overflow-y-scroll">
 							{isLoading ? (
-								<p className="text-center text-neutral-600 dark:text-neutral-100">
+								<p className="text-center text-neutral-600 dark:text-neutral-100 ">
 									Loading...
 								</p>
 							) : stadiumFeatures.data ? (
-								<div className="flex justify-between max-w-[900px] gap-4">
+								<div className="flex justify-center flex-wrap  max-w-[900px] gap-4 ">
 									{stadiumFeatures.data.map((item: StadiumFeaturesType) => (
 										<BackgroundGradient
 											key={item.id}
-											className={`rounded-sm min-h-[300px] max-h-[400px] h-[400px] max-w-md  bg-gray-200`}>
-											<StadiumCard stadium={item} />
+											className={`w-[280px] bg-gray-100 min-h-[300px] max-h-[400px] h-[400px] rounded-md`}>
+											<StadiumCard
+												stadium={item}
+												className="rounded-sm p-4"
+											/>
 										</BackgroundGradient>
 									))}
 								</div>

@@ -65,7 +65,7 @@ const Table = ({
 											| null) ?? "N/A"}
 									</td>
 								))}
-								<td className="py-4 px-6 flex gap-2">
+								<td className="py-3 px-6 flex gap-2">
 									{type === "approved" ? (
 										<>
 											<AlertModal

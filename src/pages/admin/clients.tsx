@@ -14,7 +14,7 @@ const Clients = () => {
 	const { data } = useGetData("statistic/for/admin/count-all");
 
 	return (
-		<div className="w-full relative h-[90%] rounded-md p-10 md:text-sm text-black bg-gray-100">
+		<div className="w-full relative h-[80%] rounded-md p-10 md:text-sm text-black bg-gray-100">
 			<Table
 				data={ClientData?.data?.object || []}
 				keys={ClientKeys}
