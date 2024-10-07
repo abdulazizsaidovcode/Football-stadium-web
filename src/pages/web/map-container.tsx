@@ -74,8 +74,6 @@ const MapComponent = ({
 		},
 	});
 
-	console.log(stadiumOneLoading ? "Loading,,," : stadiumOne);
-
 	return (
 		<>
 			<MapContainer
@@ -117,11 +115,7 @@ const MapComponent = ({
 						</div>
 					))}
 				</LayerGroup>
-				<Marker
-					onClick={() => {
-						console.log("clicked");
-					}}
-					position={center}>
+				<Marker position={center}>
 					<Popup>
 						<div className="text-red-600 text-2xl font-bold">You</div>
 					</Popup>

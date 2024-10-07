@@ -2,6 +2,8 @@ import img from "@/assets/player.svg";
 import StatCard from "@/components/custom/statistics-card";
 import { MdStadium } from "react-icons/md";
 import { FaUserTie } from "react-icons/fa";
+import { MdOutlineStadium } from "react-icons/md";
+import { FaUsers } from "react-icons/fa";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import stadium from "@/assets/stadium.png";
@@ -19,14 +21,17 @@ import { Input } from "@/components/ui/input";
 import { LabelInputContainer } from "@/components/ui/label";
 function Webpage() {
 	const [location, setLocation] = useState({
-		latitude: 0,
-		longitude: 0,
+		latitude: 39.6525568,
+		longitude: 66.9581312,
 	});
-
 	const requestLocation = () => {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
+					console.log(
+						"🚀 ~ requestLocation ~ position:",
+						position.coords.latitude,
+					);
 					setLocation({
 						latitude: position.coords.latitude,
 						longitude: position.coords.longitude,
@@ -42,10 +47,10 @@ function Webpage() {
 		} else {
 			alert("Geolocation is not supported by this browser.");
 		}
-		console.log(location);
 	};
 	useEffect(() => {
 		requestLocation();
+		getStadium();
 	}, []);
 
 	const { data } = useGetData(
@@ -56,14 +61,16 @@ function Webpage() {
 
 	const [km, setKm] = useState(10);
 
+	const getStadium = async () => {
+		const response = await instance.get(
+			`statistic/web/for/radiusBy-stadiumCount?lat=${location.latitude}&lang=${location.longitude}&nextToMe=${km}`,
+		);
+		return response.data.data;
+	};
+
 	const { data: nearStadium, isLoading } = useQuery({
 		queryKey: ["nearStadium", km],
-		queryFn: async () => {
-			const response = await instance.get(
-				`statistic/web/for/radiusBy-stadiumCount?lat=${location.latitude}&lang=${location.longitude}&nextToMe=${km}`,
-			);
-			return response.data.data;
-		},
+		queryFn: getStadium,
 	});
 
 	interface Inputs {
@@ -79,7 +86,7 @@ function Webpage() {
 
 	const stats = [
 		{
-			icon: <MdStadium />,
+			icon: <MdOutlineStadium />,
 			title: "Bo'sh stadionlar",
 			dataKey: data?.data?.todayOrderNullStadiumCount || 0,
 		},
@@ -89,7 +96,7 @@ function Webpage() {
 			dataKey: data?.data?.stadiumPriceAvgCount || 0,
 		},
 		{
-			icon: <RiMoneyDollarCircleLine />,
+			icon: <FaUsers />,
 			title: "Mijozlar soni",
 			dataKey: data?.data?.clientCount || 0,
 		},
@@ -99,7 +106,7 @@ function Webpage() {
 			dataKey: data?.data?.masterCountAll || 0,
 		},
 		{
-			icon: <FaUserTie />,
+			icon: <MdStadium />,
 			title: "Stadionlar umumiy soni",
 			dataKey: data?.data?.stadiumCount || 0,
 		},
@@ -113,7 +120,11 @@ function Webpage() {
 				<div className="w-[50vw] max-800:w-full max-800:mx-auto">
 					<Title text="Sfera Stadium" />
 					<div className="my-6">
-						<TextGenerateEffect words={words} />
+						<div className="mt-4">
+							<div className=" dark:text-white text-black text-[1.5vw] max-800:text-[3vw] max-520:text-[4vw] leading-snug tracking-wide">
+								{words}
+							</div>
+						</div>
 					</div>
 					<button className="hidden md:block px-[8vw] py-[1vw] md:hover:scale-110 bg-black text-white text-xl rounded-md font-semibold md:hover:bg-green-400 transition md:hover:shadow-lg">
 						Bog'lanish
@@ -224,9 +235,20 @@ function Webpage() {
 				/>
 				<div className="w-[90%] mx-auto max-800:my-4 flex justify-around max-800:flex-col-reverse items-center">
 					<TextGenerateEffect
-						className="w-[44%] max-800:w-full max-800:text-center"
-						words={`Xush kelibsiz! Biz, IT CITY jamoasi, futbol stadionlarini qulay va samarali tarzda band qilish bo'yicha mutaxassislarimiz. Bizning maqsadimiz — sizga stadion band qilish jarayonini soddalashtirish va maksimal darajada qulaylik yaratishdir.`}
+						className=""
+						words={``}
 					/>
+
+					<div className="w-[44%] max-800:w-full max-800:text-center">
+						<div className="mt-4">
+							<div className=" dark:text-white text-black text-[1.5vw] max-800:text-[3vw] max-520:text-[4vw] leading-snug tracking-wide">
+								Xush kelibsiz! Biz, IT CITY jamoasi, futbol stadionlarini qulay
+								va samarali tarzda band qilish bo'yicha mutaxassislarimiz.
+								Bizning maqsadimiz — sizga stadion band qilish jarayonini
+								soddalashtirish va maksimal darajada qulaylik yaratishdir.
+							</div>
+						</div>
+					</div>
 					<div className="w-[30%] max-800:w-[80%] max-800:my-4 overflow-hidden md:hover:scale-105 transition rounded-xl">
 						<img
 							className="w-full"

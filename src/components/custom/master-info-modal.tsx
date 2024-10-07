@@ -41,7 +41,7 @@ const MasterInfoModal = ({ id }: { id: string }) => {
 					</ModalTrigger>
 
 					<ModalBody className="max-w-fit">
-						<ModalContent className="overflow-y-scroll">
+						<ModalContent className="overflow-y-scroll no-visible-scrollbar">
 							{isLoading ? (
 								<p className="text-center text-neutral-600 dark:text-neutral-100 ">
 									Loading...
