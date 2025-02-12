@@ -1,7 +1,8 @@
 import axios, { AxiosInstance } from "axios";
 import Cookies from "js-cookie";
 const instance: AxiosInstance = axios.create({
-	baseURL: "http://164.92.165.18:8080/api/v1/",
+	// baseURL: "http://164.92.165.18:8080/api/v1/",
+	baseURL: "https://app.coinbyitca.uz/api/v1/",
 	headers: {
 		Accept: "application/json, text/plain, */*",
 		"Content-Type": "application/json",

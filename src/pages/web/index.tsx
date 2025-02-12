@@ -9,7 +9,7 @@ import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import stadium from "@/assets/stadium.png";
 import appstore from "@/assets/appstore.png";
 import googleplay from "@/assets/googleplay.png";
-import Title from "@/components/custom/title";
+// import Title from "@/components/custom/title";
 import { useGetData } from "@/hooks/useGetData";
 import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
@@ -19,6 +19,7 @@ import instance from "@/server/config";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { LabelInputContainer } from "@/components/ui/label";
+import Title from "@/components/custom/Title";
 function Webpage() {
 	const [location, setLocation] = useState({
 		latitude: 39.6525568,
